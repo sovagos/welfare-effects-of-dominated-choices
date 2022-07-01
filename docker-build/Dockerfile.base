@@ -11,3 +11,4 @@ RUN pip3 install -r requirements.txt
 RUN rm requirements.txt
 
 COPY python /usr/src/app/
+COPY scripts /usr/src/app/
