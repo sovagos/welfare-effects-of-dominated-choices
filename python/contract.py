@@ -5,6 +5,7 @@ class Contract:
         self.program_id = None
         self.state_funded = None
         self.ranking = []
-        self.scores_dic = {}
+        self.score_dictionary = {}
         self.capacity = 10**8
         self.cutoff = None
+        self.total_admitted = 0
