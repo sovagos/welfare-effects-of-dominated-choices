@@ -7,5 +7,5 @@ class Contract:
         self.ranking = []
         self.score_dictionary = {}
         self.capacity = 10**8
-        self.cutoff = None
         self.total_admitted = 0
+        self.priority_score_cutoff = None
