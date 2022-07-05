@@ -1,22 +1,21 @@
 from copy import deepcopy
-
-
 class MatchingState:
     """A helper class for representing current state of SPDA."""
     def __init__(self, applicants, contracts):
-        self.temp_mu = {}
+        self.temporary_allocation = {}
         self.cutoffs = {}
         for contract_id in contracts:
-            self.temp_mu[contract_id] = []
-            self.cutoffs[contract_id] = -1000
+            self.temporary_allocation[contract_id] = []
+            self.cutoffs[contract_id] = 0
         self.proposers = {(applicant_id, applicants[applicant_id]) for applicant_id in applicants if len(applicants[applicant_id].ranking) > 0}
-        self.curr_inds = {}
-        for ssid in self.proposers: self.curr_inds[ssid[0]] = 0
+        self.current_index = {}
+        for applicant_id in self.proposers: 
+            self.current_index[applicant_id[0]] = 0
 
     def copy(self):
-        ret = MatchingState(set(), set())
-        ret.temp_mu = deepcopy(self.temp_mu)
-        ret.cutoffs = self.cutoffs.copy()
-        ret.proposers = self.proposers.copy()
-        ret.curr_inds = self.curr_inds.copy()
-        return ret
+        matching_state = MatchingState(set(), set())
+        matching_state.temporary_allocation = deepcopy(self.temporary_allocation)
+        matching_state.cutoffs = self.cutoffs.copy()
+        matching_state.proposers = self.proposers.copy()
+        matching_state.current_index = self.current_index.copy()
+        return matching_state

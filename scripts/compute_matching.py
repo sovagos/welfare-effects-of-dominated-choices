@@ -3,9 +3,8 @@ import random
 from python.applicant import Applicant
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 from python.contract import Contract
-from python.matching_state import MatchingState
+from python.matching_utils import STB, student_proposing_deferred_acceptance
 from python.program import Program
-
 import pandas as pd
 
 d = {
@@ -81,55 +80,9 @@ for program_id in program_ids:
 # Add tests for classes
 # refactor setting contracts, programs, applicants -> add functions with tests
 
-
-def STB(applicants, contracts, seed = 1000):
-    """Run single tie-breaking."""
-    random.seed(seed)
-    random_tiebreaker = {applicant_id : random.random() for applicant_id in applicants}
-    for contract in contracts.values():    
-        contract.score_dictionary = {applicant_id : contract.score_dictionary[applicant_id] + random_tiebreaker[applicant_id] for applicant_id in contract.score_dictionary.keys()}
-        contract.ranking = sorted([[x[1],x[0]] for x in contract.score_dictionary.items()])[::-1]
-
-
 STB(applicants, contracts)
-matching_state = MatchingState(applicants, contracts)
 matching = student_proposing_deferred_acceptance(applicants, contracts)
 
 
 
 
-def student_proposing_deferred_acceptance(applicants, contracts):
-    """Run Student-Proposing Deferred Acceptance."""
-    matching_state = MatchingState(applicants, contracts)
-    temp_mu = matching_state.temp_mu
-    cutoffs = matching_state.cutoffs
-    proposers = matching_state.proposers
-    curr_inds = matching_state.curr_inds
-    while len(proposers) > 0:
-        applicant_id, applicant = proposers.pop()
-        contract_id = applicant.ranking_sorted[curr_inds[applicant_id]]
-        # Rejected applicant
-        while contracts[contract_id].score_dictionary[applicant_id] < cutoffs[contract_id] or \
-              contracts[contract_id].score_dictionary[applicant_id] < PRIORITY_SCORE_CUTOFF_MIN:
-            curr_inds[applicant_id] += 1
-            if curr_inds[applicant_id] == len(applicant.ranking_sorted):
-                contract_id = None
-                break
-            contract_id = applicant.ranking_sorted[curr_inds[applicant_id]]
-        if contract_id == None: continue
-        # Update assignment
-        heappush(temp_mu[contract_id], (contracts[contract_id].score_dictionary[applicant_id], applicant_id))
-        # 
-        if len(temp_mu[contract_id]) > contracts[contract_id].capacity:
-            min_s = heappop(temp_mu[contract_id])
-            applicant_id_out = min_s[1]
-            curr_inds[applicant_id_out] += 1
-            if curr_inds[applicant_id_out] < len(applicants[applicant_id_out].ranking_sorted):
-                proposers.add((applicant_id_out, applicants[applicant_id_out]))
-            cutoffs[contract_id] = min_s[0] + 10**(-10)  
-    matching = {applicant_id : None for applicant_id in applicants}
-    for contract_id in temp_mu:
-        for sc_applicant_id in temp_mu[contract_id]:
-            applicant_id = sc_applicant_id[1]
-            matching[applicant_id] = contract_id
-    return matching
