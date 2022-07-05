@@ -28,15 +28,19 @@ for a in applicant_ids:
     applicant = Applicant(a)
     applicants[a] = applicant
     
-
 for d in range(n_rows):
     applicant_id = data["applicant_id"][d]
-    a = applicants[applicant_id]
-    a.ranking.append([int(data["rank"][d]), data["contract_id"][d]])
+    applicant = applicants[applicant_id]
+    applicant.ranking.append([int(data["rank"][d]), data["contract_id"][d]])
+    applicant.priority_scores.append([int(data["rank"][d]), data["priority_score"][d]])
+    if data["admitted"][d] == 1:
+        applicant.realized_admitted = data["contract_id"][d]
 
 for applicant_id in applicants:
     applicants[applicant_id].ranking.sort()
     applicants[applicant_id].ranking_sorted = [x[1] for x in applicants[applicant_id].ranking]
+    applicants[applicant_id].priority_scores.sort()
+    applicants[applicant_id].priority_scores_sorted = [x[1] for x in applicants[applicant_id].priority_scores]
 
 # Create contracts
 contract_ids = pd.unique(data["contract_id"])
@@ -46,18 +50,13 @@ for c in contract_ids:
     contracts[c] = Contract(c)
 
 for d in range(n_rows):
-    applicant_id = data["applicant_id"][d]
     contract_id = data["contract_id"][d]
-    priority_score = int(data["priority_score"][d])
     contracts[contract_id].program_id = data["program_id"][d]
     contracts[contract_id].state_funded = data["state_funded"][d]
-    contracts[contract_id].score_dictionary[applicant_id] = priority_score
-    contracts[contract_id].ranking.append([priority_score, applicant_id])
-    if data["admitted"][d] == 1:
-        contracts[contract_id].total_admitted += 1
     contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
-    
-    
+
+
+        
 # Sort rankings
 for contract in contracts.values():
     contract.ranking = sorted(contract.ranking)[::-1]
@@ -80,7 +79,20 @@ for program_id in program_ids:
 # Add tests for classes
 # refactor setting contracts, programs, applicants -> add functions with tests
 
-STB(applicants, contracts)
+# TODO: STB should only depend on the applicants
+# TODO: Add function that updates score dictironary and ranking in contracts:
+# TODO: needs refactoring
+for contract in contracts.values():
+    for applicant in applicants.values():
+        if applicant.realized_admitted == contract.contract_id:
+            contract.total_admitted += 1
+        rankings = [ranking[0] for ranking in applicant.ranking if ranking[1] == contract.contract_id]
+        for r in rankings:
+            priority_score = applicant.priority_scores[r-1][1]
+            contract.score_dictionary[applicant.applicant_id] = priority_score
+            contract.ranking.append([priority_score, applicant.applicant_id])
+
+STB(applicants)
 matching = student_proposing_deferred_acceptance(applicants, contracts)
 
 

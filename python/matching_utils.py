@@ -3,18 +3,17 @@ import random
 from python.config import PRIORITY_SCORE_CUTOFF_MIN
 from python.matching_state import MatchingState
 
-def STB(applicants, contracts, seed = 1000):
+def STB(applicants, seed = 1000):
     """Run single tie-breaking."""
     random.seed(seed)
     random_tiebreaker = {applicant_id : random.random() for applicant_id in applicants}
-    for contract in contracts.values():    
-        contract.score_dictionary = {
-                applicant_id : contract.score_dictionary[applicant_id] \
-                    + random_tiebreaker[applicant_id] for applicant_id in contract.score_dictionary.keys()
-            }
-        contract.ranking = sorted([[x[1],x[0]] for x in contract.score_dictionary.items()])[::-1]
-    
-
+    for applicant in applicants.values():
+        applicant.priority_scores_with_tiebreaker = []
+        for r in range(len(applicant.priority_scores)):
+            applicant.priority_scores_with_tiebreaker.append([
+                int(r+1), applicant.priority_scores[r][1] + random_tiebreaker[applicant.applicant_id]
+            ])
+                
 def student_proposing_deferred_acceptance(applicants, contracts):
     """Run Student-Proposing Deferred Acceptance."""
     matching_state = MatchingState(applicants, contracts)
