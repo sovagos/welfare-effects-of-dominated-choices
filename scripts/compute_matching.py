@@ -55,12 +55,6 @@ for d in range(n_rows):
     contracts[contract_id].state_funded = data["state_funded"][d]
     contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
 
-
-        
-# Sort rankings
-for contract in contracts.values():
-    contract.ranking = sorted(contract.ranking)[::-1]
-
 # Set capacities
 for contract in contracts.values():
     if contract.priority_score_cutoff == PRIORITY_SCORE_CUTOFF_MIN:
@@ -78,19 +72,22 @@ for program_id in program_ids:
 
 # Add tests for classes
 # refactor setting contracts, programs, applicants -> add functions with tests
+# TODO: Add function that updates score dictionary and ranking in contracts:
 
-# TODO: STB should only depend on the applicants
-# TODO: Add function that updates score dictironary and ranking in contracts:
-# TODO: needs refactoring
-for contract in contracts.values():
-    for applicant in applicants.values():
-        if applicant.realized_admitted == contract.contract_id:
-            contract.total_admitted += 1
-        rankings = [ranking[0] for ranking in applicant.ranking if ranking[1] == contract.contract_id]
-        for r in rankings:
-            priority_score = applicant.priority_scores[r-1][1]
-            contract.score_dictionary[applicant.applicant_id] = priority_score
-            contract.ranking.append([priority_score, applicant.applicant_id])
+for applicant in applicants.values():
+    contracts[applicant.realized_admitted].total_admitted += 1
+    ranking_with_priority_score = list(
+        zip(
+            [ranking for ranking in applicant.ranking_sorted],
+            [applicant.applicant_id]*len(applicant.ranking_sorted),
+            [priority_score for priority_score in applicant.priority_scores_sorted],
+            )
+        )
+    for r in ranking_with_priority_score:
+        contracts[r[0]].score_dictionary[r[1]] = r[2]
+
+# TODO: turn into a class method: addScoreDictionary(self, applicants) {}
+# Usage: for contract in contracts: contract.addScoreDictionary(applicants)
 
 STB(applicants)
 matching = student_proposing_deferred_acceptance(applicants, contracts)
