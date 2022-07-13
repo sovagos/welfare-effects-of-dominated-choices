@@ -56,12 +56,9 @@ for d in range(n_rows):
     contracts[contract_id].state_funded = data["state_funded"][d]
     contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
 
-# Set capacities
+# Set contract capacities
 for contract in contracts.values():
-    if contract.priority_score_cutoff == PRIORITY_SCORE_CUTOFF_MIN:
-        contract.capacity = max(contract.total_admitted*CAPACITY_FACTOR, CAPACITY_MIN)
-    else:
-        contract.capacity = contract.total_admitted
+    contract.add_capacity()
         
 # Create programs
 programs = {}
@@ -72,10 +69,15 @@ for program_id in program_ids:
 
 dual_program_dictionary = {program.self_funded.contract_id: program.state_funded.contract_id for program in programs.values() if (program.self_funded != None) & (program.state_funded != None)}
 
+
+# Add dominated dropping
 for applicant in applicants.values():
     applicant.add_dominated_dropping(dual_program_dictionary)
-    print(applicant.dominated_dropping)
-    
+
+
+# TODO: add dominated flipping
+# TODO: print statistics on dominated choices
+# TODO: correct dominated choices
 
 # Add tests for classes
 # refactor setting contracts, programs, applicants -> add functions with tests
