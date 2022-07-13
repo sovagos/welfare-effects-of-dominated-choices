@@ -1,5 +1,6 @@
 from heapq import heappop, heappush
 import random
+from types import NoneType
 from python.applicant import Applicant
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 from python.contract import Contract
@@ -62,13 +63,19 @@ for contract in contracts.values():
     else:
         contract.capacity = contract.total_admitted
         
-
 # Create programs
 programs = {}
 program_ids = {contract.program_id for contract in contracts.values()}
 for program_id in program_ids:
     programs[program_id] = Program(program_id, [contract for contract in contracts.values() if contract.program_id == program_id])
 
+
+dual_program_dictionary = {program.self_funded.contract_id: program.state_funded.contract_id for program in programs.values() if (program.self_funded != None) & (program.state_funded != None)}
+
+for applicant in applicants.values():
+    applicant.add_dominated_dropping(dual_program_dictionary)
+    print(applicant.dominated_dropping)
+    
 
 # Add tests for classes
 # refactor setting contracts, programs, applicants -> add functions with tests
