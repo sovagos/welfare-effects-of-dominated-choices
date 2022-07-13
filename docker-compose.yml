@@ -10,4 +10,12 @@ services:
       - .:/usr/src/app
     env_file:
       - .env
+  test:
+    image: ${APP_NAME}:base
+    ports:
+      - "8080:8080"
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app/
+    env_file: .env
       

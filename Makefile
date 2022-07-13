@@ -30,6 +30,10 @@ image-%:
 local_shell:
 	@docker-compose run --service-ports --workdir /usr/src/app --rm python_shell /bin/bash
 
+test:
+	@docker-compose run test bash -c "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/unit"
+
 .PHONY: start up down stop
 .PHONY: local_shell
+.PHONY: test
 .PHONY: build image-%
