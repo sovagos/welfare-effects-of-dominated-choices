@@ -4,6 +4,7 @@ from types import NoneType
 from python.applicant import Applicant
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 from python.contract import Contract
+from python.data_utils import createApplicants, createContracts, createPrograms
 from python.matching_utils import STB, student_proposing_deferred_acceptance
 from python.program import Program
 import pandas as pd
@@ -19,23 +20,17 @@ d = {
     }
 data = pd.DataFrame(data=d)
 data["contract_id"] = data["program_id"] + (1 - data["state_funded"])
-n_rows = len(data)
-
 
 # Create applicants
-applicant_ids = data['applicant_id'].unique()
-applicants = {}
-for a in applicant_ids:
-    applicant = Applicant(a)
-    applicants[a] = applicant
-    
-for d in range(n_rows):
-    applicant_id = data["applicant_id"][d]
-    applicant = applicants[applicant_id]
-    applicant.ranking.append([int(data["rank"][d]), data["contract_id"][d]])
-    applicant.priority_scores.append([int(data["rank"][d]), data["priority_score"][d]])
-    if data["admitted"][d] == 1:
-        applicant.realized_admitted = data["contract_id"][d]
+applicants = createApplicants(data)
+
+# Create contracts and add capacities
+contracts = createContracts(data)
+for contract in contracts.values():
+    contract.add_capacity()
+
+# Create programs
+programs = createPrograms(contracts)
 
 for applicant_id in applicants:
     applicants[applicant_id].ranking.sort()
@@ -43,30 +38,8 @@ for applicant_id in applicants:
     applicants[applicant_id].priority_scores.sort()
     applicants[applicant_id].priority_scores_sorted = [x[1] for x in applicants[applicant_id].priority_scores]
 
-# Create contracts
-contract_ids = pd.unique(data["contract_id"])
-contracts = {}
 
-for c in contract_ids:
-    contracts[c] = Contract(c)
-
-for d in range(n_rows):
-    contract_id = data["contract_id"][d]
-    contracts[contract_id].program_id = data["program_id"][d]
-    contracts[contract_id].state_funded = data["state_funded"][d]
-    contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
-
-# Set contract capacities
-for contract in contracts.values():
-    contract.add_capacity()
-        
-# Create programs
-programs = {}
-program_ids = {contract.program_id for contract in contracts.values()}
-for program_id in program_ids:
-    programs[program_id] = Program(program_id, [contract for contract in contracts.values() if contract.program_id == program_id])
-
-
+# TODO: use createSelfFundedProgramDictionary and add test
 dual_program_dictionary = {program.self_funded.contract_id: program.state_funded.contract_id for program in programs.values() if (program.self_funded != None) & (program.state_funded != None)}
 
 

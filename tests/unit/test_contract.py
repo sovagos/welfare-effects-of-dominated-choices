@@ -1,5 +1,4 @@
 from python.contract import Contract
-
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 
 def test_whether_contract_has_right_contract_id():
