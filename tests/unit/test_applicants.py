@@ -69,24 +69,29 @@ def test_when_applicant_has_a_ranking__then_correct_dominated_dropping_lower_bou
     applicant = Applicant(1)
     dual_program_dictionary = {2:1}
 
-    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, dual_program_dictionary)
+    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_program_dictionary)
 
     assert type(applicant.ranking_lower_bound) is list
+    assert type(applicant.priority_scores_lower_bound) is list
 
 def test_when_applicant_makes_dominated_dropping__then_correct_dominated_dropping_lower_bound__creates_correct_ranking_lower_bound():
     applicant = Applicant(1)
     applicant.ranking = [[1, 2]]
+    applicant.priority_scores = [[1, 10]]
     dual_program_dictionary = {2:1}
 
-    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, dual_program_dictionary)
+    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_program_dictionary)
 
-    assert applicant.ranking_lower_bound == [[1, 2], [0.5, 1]]
+    assert applicant.ranking_lower_bound == [[0.5, 1], [1, 2]]
+    assert applicant.priority_scores_lower_bound == [[0.5, 10], [1, 10]]
 
 def test_when_applicant_makes_no_dominated_dropping__then_correct_dominated_dropping_lower_bound__creates_correct_ranking_lower_bound():
     applicant = Applicant(1)
     applicant.ranking = [[1, 1]]
+    applicant.priority_scores = [[1, 10]]
     dual_program_dictionary = {2:1}
 
-    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, dual_program_dictionary)
+    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_program_dictionary)
 
     assert applicant.ranking_lower_bound == [[1, 1]]
+    assert applicant.priority_scores_lower_bound == [[1, 10]]

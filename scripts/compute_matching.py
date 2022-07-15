@@ -29,31 +29,27 @@ contracts = create_contracts(data)
 for contract in contracts.values():
     contract.add_capacity()
 
+# Add realized admitted to contracts
+for applicant in applicants.values():
+    contracts[applicant.realized_admitted].total_admitted += 1
+
 # Create programs
 programs = create_programs(contracts)
-
-
 
 # Create dual self funded dictionary
 dual_self_funded_program_dictionary = {}
 for program in programs.values():
-    dict = program.create_self_funded_program_dictionary()
-    if dict != {}:
-        dual_self_funded_program_dictionary.update(dict)
+    dual_self_funded_program_dictionary.update(program.create_self_funded_program_dictionary())
 
-# Add dominated choices
+# Add and summarize dominated choices
 for applicant in applicants.values():
     applicant.add_dominated_dropping(dual_self_funded_program_dictionary)
     applicant.add_dominated_flipping(dual_self_funded_program_dictionary)
-
-# Summarize dominated choices
 summarize_dominated_choices(applicants)
 
 # Correct dominated dropping (lower bound)
-# TODO: add priority score correction to dominated dropping correction
 for applicant in applicants.values():
-    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, dual_self_funded_program_dictionary)
-
+    applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_self_funded_program_dictionary)
 
 # TODO: correct dominated flipping lower bound
 # TODO: correct dominated choices lower bound
@@ -62,8 +58,15 @@ for applicant in applicants.values():
 # refactor setting contracts, programs, applicants -> add functions with tests
 # TODO: Add function that updates score dictionary and ranking in contracts:
 
+
+# Initialize matching
 for applicant in applicants.values():
-    contracts[applicant.realized_admitted].total_admitted += 1
+    applicant.initialize_ranking(applicant.ranking_lower_bound, applicant.priority_scores_lower_bound)
+
+# Add single tie-breaking
+STB(applicants)
+
+for applicant in applicants.values():
     ranking_with_priority_score = list(
         zip(
             [ranking for ranking in applicant.ranking_sorted],
@@ -77,17 +80,6 @@ for applicant in applicants.values():
 # TODO: turn into a class method: addScoreDictionary(self, applicants) {}
 # Usage: for contract in contracts: contract.addScoreDictionary(applicants)
 
-# TODO: initialize matching
-for applicant_id in applicants:
-    applicants[applicant_id].ranking.sort()
-    applicants[applicant_id].ranking_sorted = [x[1] for x in applicants[applicant_id].ranking]
-    applicants[applicant_id].priority_scores.sort()
-    applicants[applicant_id].priority_scores_sorted = [x[1] for x in applicants[applicant_id].priority_scores]
 
 # Run matching
-STB(applicants)
 matching = student_proposing_deferred_acceptance(applicants, contracts)
-
-
-
-
