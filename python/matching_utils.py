@@ -3,6 +3,18 @@ import random
 from python.config import PRIORITY_SCORE_CUTOFF_MIN
 from python.matching_state import MatchingState
 
+def summarize_dominated_choices(applicants):
+    dominated_dropping = 0
+    dominated_flipping = 0
+    dominated_choice = 0
+    for applicant in applicants.values():
+        dominated_dropping += int(applicant.dominated_dropping)
+        dominated_flipping += int(applicant.dominated_flipping)
+        dominated_choice += int(any([applicant.dominated_dropping, applicant.dominated_flipping]))
+    print(f"Share of applicants with dominated dropping: {dominated_dropping/len(applicants)}")
+    print(f"Share of applicants with dominated flipping: {dominated_flipping/len(applicants)}")
+    print(f"Share of applicants with dominated choices: {dominated_choice/len(applicants)}")
+
 def STB(applicants, seed = 1000):
     """Run single tie-breaking."""
     random.seed(seed)

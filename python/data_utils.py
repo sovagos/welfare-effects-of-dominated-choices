@@ -3,7 +3,7 @@ from python.applicant import Applicant
 from python.contract import Contract
 from python.program import Program
 
-def createApplicants(data):
+def create_applicants(data):
     n_rows = len(data)
     applicant_ids = data['applicant_id'].unique()
     applicants = {}
@@ -19,7 +19,7 @@ def createApplicants(data):
             applicant.realized_admitted = data["contract_id"][d]
     return applicants
 
-def createContracts(data):
+def create_contracts(data):
     n_rows = len(data)
     contract_ids = pd.unique(data["contract_id"])
     contracts = {}
@@ -32,7 +32,7 @@ def createContracts(data):
         contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
     return contracts
 
-def createPrograms(contracts):
+def create_programs(contracts):
     programs = {}
     program_ids = {contract.program_id for contract in contracts.values()}
     for program_id in program_ids:
