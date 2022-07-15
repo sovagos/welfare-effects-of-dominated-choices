@@ -20,12 +20,8 @@ def STB(applicants, seed = 1000):
     random.seed(seed)
     random_tiebreaker = {applicant_id : random.random() for applicant_id in applicants}
     for applicant in applicants.values():
-        applicant.priority_scores_with_tiebreaker = []
-        for r in range(len(applicant.priority_scores)):
-            applicant.priority_scores_with_tiebreaker.append([
-                int(r+1), applicant.priority_scores[r][1] + random_tiebreaker[applicant.applicant_id]
-            ])
-                
+        applicant.priority_scores_sorted = [priority_score + random_tiebreaker[applicant.applicant_id] for priority_score in applicant.priority_scores_sorted]
+
 def student_proposing_deferred_acceptance(applicants, contracts):
     """Run Student-Proposing Deferred Acceptance."""
     matching_state = MatchingState(applicants, contracts)
