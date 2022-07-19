@@ -43,16 +43,28 @@ for program in programs.values():
 
 # Add and summarize dominated choices
 for applicant in applicants.values():
-    applicant.add_dominated_dropping(dual_self_funded_program_dictionary)
-    applicant.add_dominated_flipping(dual_self_funded_program_dictionary)
+    applicant.add_dominated_dropping(dual_self_funded_program_dictionary, applicant.ranking)
+    applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking)
 summarize_dominated_choices(applicants)
 
-# Correct dominated dropping (lower bound)
+
+# Test if dominated choices are corrected
 for applicant in applicants.values():
     applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_self_funded_program_dictionary)
+    applicant.add_dominated_dropping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
+    applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
+summarize_dominated_choices(applicants)
 
-# TODO: correct dominated flipping lower bound
+for applicant in applicants.values():
+    applicant.correct_dominated_flipping_lower_bound(applicant.ranking, applicant.priority_scores, dual_self_funded_program_dictionary)
+    applicant.add_dominated_dropping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
+    applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
+summarize_dominated_choices(applicants)
+
+
+
 # TODO: correct dominated choices lower bound
+
 
 
 # refactor setting contracts, programs, applicants -> add functions with tests
