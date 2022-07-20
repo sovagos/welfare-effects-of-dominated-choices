@@ -1,6 +1,5 @@
 from copy import deepcopy
 
-
 class Applicant:
     """A class representing an applicant."""
     def __init__(self, applicant_id):
@@ -8,7 +7,6 @@ class Applicant:
         self.ranking = []
         self.priority_scores = []
         self.realized_admitted = None
-        self.dominated_dropping = None
 
     def add_dominated_dropping(self, dual_self_funded_program_dictionary, ranking):
         listed_dual_programs = {self_funded: state_funded for self_funded, state_funded in dual_self_funded_program_dictionary.items() if ((self_funded in [item[1] for item in ranking]) & (state_funded not in [item[1] for item in ranking]))}
@@ -52,7 +50,6 @@ class Applicant:
         self.ranking_lower_bound.sort()
         self.priority_scores_lower_bound.sort()
         
-
     def initialize_ranking(self, ranking, priority_scores):
         self.ranking_sorted = [x[1] for x in ranking]
         self.priority_scores_sorted = [x[1] for x in priority_scores]

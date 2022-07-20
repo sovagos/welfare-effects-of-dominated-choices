@@ -47,7 +47,6 @@ for applicant in applicants.values():
     applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking)
 summarize_dominated_choices(applicants)
 
-
 # Test if dominated choices are corrected
 for applicant in applicants.values():
     applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_self_funded_program_dictionary)
@@ -95,3 +94,10 @@ for applicant in applicants.values():
 
 # Run matching
 matching = student_proposing_deferred_acceptance(applicants, contracts)
+
+# Print summary statistics of the matching
+
+# Baseline matching
+# Dominated dropping is corrected -> matching
+# Dominated flipping is corrects -> matching
+# All dominated choices are corrected -> matching

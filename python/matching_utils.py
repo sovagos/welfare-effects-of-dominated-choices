@@ -4,6 +4,7 @@ from python.config import PRIORITY_SCORE_CUTOFF_MIN
 from python.matching_state import MatchingState
 
 def summarize_dominated_choices(applicants):
+    """Summarize dominated choices (flipping and dropping)"""
     dominated_dropping = 0
     dominated_flipping = 0
     dominated_choice = 0
