@@ -1,6 +1,17 @@
 # welfare-effects-of-dominated-choices
 This repo computes the welfare effect of dominated choices in Hungarian college admission
 
+# Summary
+The Hungarian college admission market is an example of a matching-with-contracts markets: college applicants can apply to study programs with state-funding or self-funding options. Applicants are assigned to contracts by a centralized clearinghouse that uses a variant of the student-proposing Deferred Acceptance mechanism. 
+
+Key steps:
+  - Document the prevalence of dominated choices
+  - Replicate baseline match
+  - Correct dominated choices and compute a counterfactual match
+  - Compare the counterfactual match to the baseline match
+    - number of applicants assigned to college (total, self-funded, state-funded)
+    - number of winners and losers
+
 # Definitions
 
 Applicant: college applicant with the following attributes:
