@@ -32,3 +32,38 @@ Program:
   
 Domnated flipping:
   - The applicant ranks the self-funded contract higher than the corresponding state-funded contract
+
+# Example
+
+| Applicant id | Ranking | Contract id | Program id | Priority score | State-funded |
+| ------------ | ------- | ----------- | ---------- | -------------- | ------------ |
+| 1            | 1       | 1           | A          | 10             | True         |
+| 2            | 1       | 2           | A          | 11             | False        |
+| 3            | 1       | 2           | A          | 12             | False        |
+| 3            | 2       | 2           | A          | 12             | True         |
+
+Capacities:
+ - Contract 1: 1 spot
+ - Contract 2: 1 spot
+
+Dominated choices:
+ - Applicant 2: dominated dropping, as (s)he do not rank the state-funded version of Program A
+ - Applicant 3: dominated flipping, as (s)he ranks the self-funded version of Program A higher than the state-funded version of Program A
+
+Benchmark matching: {Applicant: contract} = {1:1, 2:None, 3:2}   
+Counterfactual matching (with no dominated choices): {Applicant: contract} = {1:None, 2:2, 3:1}   
+Counterfactual matching (with no dominated flipping): {Applicant: contract} = {1:None, 2:2, 3:1}   
+Counterfactual matching (with no dominated dropping): {Applicant: contract} = {1:None, 2:1, 3:2}   
+
+## Number of applicants assigned to college
+Benchmark matching: 2
+Counterfactual matching (with no dominated choices): 2
+Counterfactual matching (with no dominated flipping): 2
+Counterfactual matching (with no dominated dropping): 2
+## Winners and losers
+
+| Comparison | Winner | Indifferent | Loser |
+| --------------------------------------------------------------------------- | ------ | ----------- | ----- |
+| Counterfactual matching (with no dominated choices) vs. Benchmark matching: | 2, 3   | None        | 1     |
+| Counterfactual matching (with no dominated flipping) vs. Benchmark matching:| 2, 3 | None        | 1     |
+| Counterfactual matching (with no dominated dropping) vs. Benchmark matching:| 2    | 3           | 1     |
