@@ -1,23 +1,19 @@
-from heapq import heappop, heappush
-import random
 from types import NoneType
 from python.applicant import Applicant
 from python.contract import Contract
 from python.program import Program
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 from python.data_utils import create_applicants, create_contracts, create_programs
-from python.matching_utils import STB, student_proposing_deferred_acceptance, summarize_dominated_choices
+from python.matching_utils import summarize_dominated_choices
 import pandas as pd
 
 d = {
         'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
         'rank': [1, 2, 3, 1, 2, 3, 1, 2, 3],
         'program_id': ["P1", "P1", "P3", "P1", "P3", "P3", "P5", "P3", "P1"],
-        'contract_id': ["C1", "C2", "C4", "C1", "C4", "C2", "C5", "C3", "C1"],
+        'contract_id': ["C1", "C2", "C4", "C1", "C4", "C3", "C5", "C3", "C1"],
         'state_funded': [True, False, False, True, False, True, True, True, True],
         'priority_score': [10, 11, 12, 13, 14, 15, 16, 17, 18],
-        'admitted': [1, 0, 0, 0, 1, 0, 1, 0, 0],
-        'priority_score_cutoff': [10, 5, 14, 10, 14, 5, 16, 5, 10],
     }
 data = pd.DataFrame(data=d)
 
@@ -26,12 +22,6 @@ applicants = create_applicants(data)
 
 # Create contracts and add capacities
 contracts = create_contracts(data)
-for contract in contracts.values():
-    contract.add_capacity()
-
-# Add realized admitted to contracts
-for applicant in applicants.values():
-    contracts[applicant.realized_admitted].total_admitted += 1
 
 # Create programs
 programs = create_programs(contracts)
@@ -47,57 +37,17 @@ for applicant in applicants.values():
     applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking)
 summarize_dominated_choices(applicants)
 
-# Test if dominated choices are corrected
+# Test whether dominated choices are corrected
+## Test whether dominated dropping are corrected
 for applicant in applicants.values():
     applicant.correct_dominated_dropping_lower_bound(applicant.ranking, applicant.priority_scores, dual_self_funded_program_dictionary)
     applicant.add_dominated_dropping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
     applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
 summarize_dominated_choices(applicants)
 
+## Test whether dominated flipping are corrected
 for applicant in applicants.values():
     applicant.correct_dominated_flipping_lower_bound(applicant.ranking, applicant.priority_scores, dual_self_funded_program_dictionary)
     applicant.add_dominated_dropping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
     applicant.add_dominated_flipping(dual_self_funded_program_dictionary, applicant.ranking_lower_bound)
 summarize_dominated_choices(applicants)
-
-
-
-# TODO: correct dominated choices lower bound
-
-
-
-# refactor setting contracts, programs, applicants -> add functions with tests
-# TODO: Add function that updates score dictionary and ranking in contracts:
-
-
-# Initialize matching
-for applicant in applicants.values():
-    applicant.initialize_ranking(applicant.ranking_lower_bound, applicant.priority_scores_lower_bound)
-
-# Add single tie-breaking
-STB(applicants)
-
-for applicant in applicants.values():
-    ranking_with_priority_score = list(
-        zip(
-            [ranking for ranking in applicant.ranking_sorted],
-            [applicant.applicant_id]*len(applicant.ranking_sorted),
-            [priority_score for priority_score in applicant.priority_scores_sorted],
-            )
-        )
-    for r in ranking_with_priority_score:
-        contracts[r[0]].score_dictionary[r[1]] = r[2]
-
-# TODO: turn into a class method: addScoreDictionary(self, applicants) {}
-# Usage: for contract in contracts: contract.addScoreDictionary(applicants)
-
-
-# Run matching
-matching = student_proposing_deferred_acceptance(applicants, contracts)
-
-# Print summary statistics of the matching
-
-# Baseline matching
-# Dominated dropping is corrected -> matching
-# Dominated flipping is corrects -> matching
-# All dominated choices are corrected -> matching
