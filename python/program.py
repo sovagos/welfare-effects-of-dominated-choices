@@ -7,9 +7,9 @@ class Program:
         self.self_funded = None
 
         for c in contracts:
-            if c.state_funded == 1:
+            if c.state_funded == True:
                 self.state_funded = c
-            elif c.state_funded == 0:
+            elif c.state_funded == False:
                 self.self_funded = c
                 
     def create_self_funded_program_dictionary(self):
