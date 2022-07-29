@@ -6,8 +6,9 @@ from python.contract import Contract
 from python.program import Program
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 from python.data_utils import create_applicants, create_contracts, create_programs
-from python.matching_utils import add_single_tie_breaker, student_proposing_deferred_acceptance, summarize_dominated_choices
+from python.matching_utils import add_single_tie_breaker, compute_priority_score_cutoffs_from_matching, student_proposing_deferred_acceptance, summarize_dominated_choices
 import pandas as pd
+import math
 
 d = {
         'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
@@ -36,3 +37,6 @@ for applicant in applicants.values():
 
 # Compute matching
 matching = student_proposing_deferred_acceptance(applicants, contracts)
+
+# Compute priority scores
+priority_score_cutoffs = compute_priority_score_cutoffs_from_matching(matching, contracts)

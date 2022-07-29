@@ -1,4 +1,5 @@
 from heapq import heappop, heappush
+import math
 import random
 from python.config import PRIORITY_SCORE_CUTOFF_MIN
 from python.matching_state import MatchingState
@@ -56,3 +57,13 @@ def student_proposing_deferred_acceptance(applicants, contracts):
             applicant_id = sc_applicant_id[1]
             matching[applicant_id] = contract_id
     return matching
+
+def compute_priority_score_cutoffs_from_matching(matching, contracts):
+    priority_score_cutoffs = {}
+    for contract in contracts.values():
+        priority_scores_of_admitted_applicants = [priority_score for applicant_id, priority_score in contract.score_dictionary.items() if matching[applicant_id] == contract.contract_id]
+        if priority_scores_of_admitted_applicants == []:
+            priority_score_cutoffs[contract.contract_id] = 0
+        else:
+             priority_score_cutoffs[contract.contract_id] = math.floor(min(priority_scores_of_admitted_applicants))
+    return priority_score_cutoffs
