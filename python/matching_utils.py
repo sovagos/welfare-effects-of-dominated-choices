@@ -16,7 +16,7 @@ def summarize_dominated_choices(applicants):
     print(f"Share of applicants with dominated flipping: {dominated_flipping/len(applicants)}")
     print(f"Share of applicants with dominated choices: {dominated_choice/len(applicants)}")
 
-def STB(applicants, seed = 1000):
+def add_single_tie_breaker(applicants, seed = 1000):
     """Run single tie-breaking."""
     random.seed(seed)
     random_tiebreaker = {applicant_id : random.random() for applicant_id in applicants}

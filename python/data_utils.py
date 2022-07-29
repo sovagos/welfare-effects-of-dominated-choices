@@ -15,8 +15,8 @@ def create_applicants(data):
         applicant = applicants[applicant_id]
         applicant.ranking.append([int(data["rank"][d]), data["contract_id"][d]])
         applicant.priority_scores.append([int(data["rank"][d]), data["priority_score"][d]])
-        if data["admitted"][d] == 1:
-            applicant.realized_admitted = data["contract_id"][d]
+        # if data["admitted"][d] == 1:
+        #     applicant.realized_admitted = data["contract_id"][d]
     return applicants
 
 def create_contracts(data):
@@ -29,7 +29,7 @@ def create_contracts(data):
         contract_id = data["contract_id"][d]
         contracts[contract_id].program_id = data["program_id"][d]
         contracts[contract_id].state_funded = data["state_funded"][d]
-        contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
+        #contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
     return contracts
 
 def create_programs(contracts):

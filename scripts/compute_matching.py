@@ -10,16 +10,16 @@ from python.matching_utils import STB, student_proposing_deferred_acceptance, su
 import pandas as pd
 
 d = {
-        'applicant_id': [1, 1, 1, 2, 2, 2, 3, 3, 3],
+        'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
         'rank': [1, 2, 3, 1, 2, 3, 1, 2, 3],
-        'program_id': [1, 1, 3, 1, 3, 3, 5, 3, 1],
-        'state_funded': [1, 0, 0, 1, 0, 1, 1, 1, 1],
+        'program_id': ["P1", "P1", "P3", "P1", "P3", "P3", "P5", "P3", "P1"],
+        'contract_id': ["C1", "C2", "C4", "C1", "C4", "C2", "C5", "C3", "C1"],
+        'state_funded': [True, False, False, True, False, True, True, True, True],
         'priority_score': [10, 11, 12, 13, 14, 15, 16, 17, 18],
         'admitted': [1, 0, 0, 0, 1, 0, 1, 0, 0],
         'priority_score_cutoff': [10, 5, 14, 10, 14, 5, 16, 5, 10],
     }
 data = pd.DataFrame(data=d)
-data["contract_id"] = data["program_id"] + (1 - data["state_funded"])
 
 # Create applicants
 applicants = create_applicants(data)
