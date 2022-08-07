@@ -7,6 +7,7 @@ def test_when_program_is_created__then_programs__have_the_right_length():
         'program_id': ["P1", "P1"],
         'state_funded': [True, False],
         'priority_score_cutoff': [10, 5],
+        'capacity': [1, 1],
     }
     data = pd.DataFrame(data=d)
     contracts = create_contracts(data)
@@ -21,6 +22,7 @@ def test_when_program_is_dual__then_create_self_funded_program_dictionary__retur
         'program_id': ["P1", "P1", "P2", "P3"],
         'state_funded': [True, False, True, False],
         'priority_score_cutoff': [10, 5, 14, 10],
+        'capacity': [1, 1, 1, 1]
     }
     data = pd.DataFrame(data=d)
     contracts = create_contracts(data)

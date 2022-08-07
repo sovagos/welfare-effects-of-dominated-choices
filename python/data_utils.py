@@ -20,7 +20,7 @@ def create_applicants(data):
     return applicants
 
 def create_contracts(data):
-    data_contracts = data[['program_id', 'contract_id', 'state_funded']].drop_duplicates().reset_index()
+    data_contracts = data[['program_id', 'contract_id', 'state_funded', 'capacity']].drop_duplicates().reset_index()
     contract_ids = pd.unique(data_contracts["contract_id"])
     contracts = {}
     for c in contract_ids:
@@ -29,6 +29,7 @@ def create_contracts(data):
         contract_id = data_contracts["contract_id"][d]
         contracts[contract_id].program_id = data_contracts["program_id"][d]
         contracts[contract_id].state_funded = data_contracts["state_funded"][d]
+        contracts[contract_id].capacity = data_contracts["capacity"][d]
         #contracts[contract_id].priority_score_cutoff = int(data["priority_score_cutoff"][d])
     return contracts
 
