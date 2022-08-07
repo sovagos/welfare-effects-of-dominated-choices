@@ -33,6 +33,9 @@ local_shell:
 test:
 	@docker-compose run test bash -c "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/unit"
 
+test-e2e:
+	@docker-compose run test bash -c "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/e2e"
+
 .PHONY: start up down stop
 .PHONY: local_shell
 .PHONY: test
