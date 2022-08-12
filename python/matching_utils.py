@@ -74,13 +74,19 @@ def compute_priority_score_cutoffs_from_matching(matching, contracts):
         admitted applicant with the lowest priority score. \
         If no applicant is admitted, then the priority-score cutoff is zero.
 
+        Implicit assumptions:
+            - Matching is not an empty (KeyError)
+            - Each applicant who is in a score dictionary is part of the matching
+
     """
     priority_score_cutoffs = {}
     for contract in contracts.values():
-        priority_scores_of_admitted_applicants = [priority_score for applicant_id, priority_score in contract.score_dictionary.items() if matching[applicant_id] == contract.contract_id]
         try:
+            priority_scores_of_admitted_applicants = [priority_score for applicant_id, priority_score in contract.score_dictionary.items() if matching[applicant_id] == contract.contract_id]
             priority_score_cutoffs[contract.contract_id] = math.floor(min(priority_scores_of_admitted_applicants))
         except ValueError:
+            priority_score_cutoffs[contract.contract_id] = 0
+        except KeyError:
             priority_score_cutoffs[contract.contract_id] = 0
     return priority_score_cutoffs
 
