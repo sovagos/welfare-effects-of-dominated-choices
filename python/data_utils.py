@@ -42,3 +42,41 @@ def create_programs(contracts):
     return programs
 
 
+def check_whether_column_has_the_right_type(data, colname, col_type):
+    """ Check whether a column has the right type
+
+    Args:
+        data (data.frame): input data
+        colname (str): column name
+        col_type (str): column type
+
+    Retruns:
+        KeyError when column is missing, prints message otherwise
+    """
+    try:
+        if data[colname].dtype == col_type:
+            print(f"Column {colname} has the right type ({col_type}).")
+        else:
+            print(f"Column {colname} does not have the right type.")
+    except KeyError:
+        print(f"The dataset does not have {colname} columns.")
+
+
+def check_unique_keys(data, key_column_names):
+    """ Check whether certain combination of columns define a unique row in the dataset
+
+    Args:
+        data (data.frame): input data
+        key_column_names (list): list of column names
+
+    Returns:
+        KeyError when one of the columns is missing, prints message otherwise
+    """
+    try:
+        if data.drop_duplicates(subset = key_column_names).shape[0] == data.shape[0]:
+            print(f"The dataset is unique by {key_column_names}.")
+        else:
+            print(f"The dataset is not unique by {key_column_names}.")
+    except KeyError:
+        print(f"The dataset does not have {key_column_names} columns.")
+        

@@ -11,14 +11,14 @@ import pandas as pd
 import math
 
 d = {
-        'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
-        'rank': [1, 2, 3, 1, 2, 3, 1, 2, 3],
-        'program_id': ["P1", "P1", "P3", "P1", "P3", "P3", "P5", "P3", "P1"],
-        'contract_id': ["C1", "C2", "C4", "C1", "C4", "C2", "C5", "C3", "C1"],
-        'state_funded': [True, False, False, True, False, True, True, True, True],
-        'priority_score': [10, 11, 12, 13, 14, 15, 16, 17, 18],
-        'capacity': [1, 1, 1, 1, 1, 1, 1, 1, 1],
-    }
+    'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
+    'rank': [1, 2, 3, 1, 2, 3, 1, 2, 3],
+    'program_id': ["P1", "P1", "P3", "P1", "P3", "P1", "P5", "P3", "P1"],
+    'contract_id': ["C1", "C2", "C4", "C1", "C4", "C2", "C5", "C3", "C1"],
+    'state_funded': [True, False, False, True, False, False, True, True, True],
+    'priority_score': [10, 11, 12, 13, 14, 15, 16, 17, 18],
+    'capacity': [1, 1, 1, 1, 1, 1, 1, 1, 1],
+}
 data = pd.DataFrame(data=d)
 
 # Create applicants and contracts
