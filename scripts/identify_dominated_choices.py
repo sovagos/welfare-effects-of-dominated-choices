@@ -1,11 +1,12 @@
 from types import NoneType
+import pandas as pd
 from python.applicant import Applicant
 from python.contract import Contract
 from python.program import Program
 from python.config import CAPACITY_MIN, PRIORITY_SCORE_CUTOFF_MIN, CAPACITY_FACTOR
 from python.data_utils import create_applicants, create_contracts, create_programs
 from python.matching_utils import summarize_dominated_choices
-import pandas as pd
+from python.validate_data import validate_data
 
 d = {
         'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
@@ -14,8 +15,12 @@ d = {
         'contract_id': ["C1", "C2", "C4", "C1", "C4", "C3", "C5", "C3", "C1"],
         'state_funded': [True, False, False, True, False, True, True, True, True],
         'priority_score': [10, 11, 12, 13, 14, 15, 16, 17, 18],
+        'capacity': [1, 1, 1, 1, 1, 1, 1, 1, 1]
     }
 data = pd.DataFrame(data=d)
+
+# Validate data
+validate_data(data)
 
 # Create applicants
 applicants = create_applicants(data)

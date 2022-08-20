@@ -10,6 +10,8 @@ from python.matching_utils import add_single_tie_breaker, compute_priority_score
 import pandas as pd
 import math
 
+from python.validate_data import validate_data
+
 d = {
     'applicant_id': ["A1", "A1", "A1", "A2", "A2", "A2", "A3", "A3", "A3"],
     'rank': [1, 2, 3, 1, 2, 3, 1, 2, 3],
@@ -21,6 +23,8 @@ d = {
 }
 data = pd.DataFrame(data=d)
 
+# Validate data
+validate_data(data)
 # Create applicants and contracts
 applicants = create_applicants(data)
 contracts = create_contracts(data)
