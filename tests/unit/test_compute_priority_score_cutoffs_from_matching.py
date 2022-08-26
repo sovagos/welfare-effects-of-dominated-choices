@@ -1,6 +1,7 @@
 import pytest
+
+from python.compute_priority_score_cutoffs_from_matching import compute_priority_score_cutoffs_from_matching
 from python.contract import Contract
-from python.matching_utils import compute_priority_score_cutoffs_from_matching
 
 
 contracts = {
@@ -19,14 +20,6 @@ contracts["C2"].score_dictionary = {
 
 use_cases = [
     {
-        "matching": {},
-        "expected": {
-            "C1": 0,
-            "C2": 0,
-            "C3": 0
-        }
-    },
-    {
         "matching": {
             "A1": None,
             "A2": None
@@ -43,8 +36,8 @@ use_cases = [
             "A2": "C2"
         },
         "expected": {
-            "C1": 10,
-            "C2": 10,
+            "C1": 10.1,
+            "C2": 10.2,
             "C3": 0
         }
     },
@@ -54,7 +47,7 @@ use_cases = [
             "A2": "C1"
         },
         "expected": {
-            "C1": 10,
+            "C1": 10.1,
             "C2": 0,
             "C3": 0
         }
@@ -65,15 +58,6 @@ use_cases = [
 def test__compute_priority_score_cutoffs__normal_matching__returns_right_cutoffs(use_case):
     matching = use_case["matching"]
 
-    priroty_score_cutoffs = compute_priority_score_cutoffs_from_matching(matching, contracts)
+    priority_score_cutoffs = compute_priority_score_cutoffs_from_matching(matching, contracts)
 
-    assert priroty_score_cutoffs == use_case["expected"]
-
-
-def test__compute_priority_score_cutoffs__normal_matching_but_no_contracts__returns_empty_dictionary():
-    contracts = {}
-    matching = {"A1" : None}
-
-    priroty_score_cutoffs = compute_priority_score_cutoffs_from_matching(matching, contracts)
-
-    assert priroty_score_cutoffs == {}
+    assert priority_score_cutoffs == use_case["expected"]

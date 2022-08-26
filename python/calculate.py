@@ -1,5 +1,7 @@
+from python.compute_priority_score_cutoffs_from_matching import compute_priority_score_cutoffs_from_matching
 from python.data_utils import create_applicants, create_contracts
-from python.matching_utils import add_single_tie_breaker, compute_priority_score_cutoffs_from_matching, student_proposing_deferred_acceptance
+from python.floor_priority_score_cutoffs import floor_priority_score_cutoffs
+from python.matching_utils import add_single_tie_breaker, student_proposing_deferred_acceptance
 from python.validate_data import validate_data
 from python.verify_stability import verify_stability
 
@@ -17,4 +19,4 @@ def calculate(data):
     matching = student_proposing_deferred_acceptance(applicants, contracts)
     priority_score_cutoffs = compute_priority_score_cutoffs_from_matching(matching, contracts)
     verify_stability(matching, applicants, priority_score_cutoffs)
-    return priority_score_cutoffs
+    return floor_priority_score_cutoffs(priority_score_cutoffs)

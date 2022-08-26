@@ -3,7 +3,6 @@ import math
 
 def verify_stability(matching, applicants, priority_score_cutoffs):
     for applicant in applicants.values():
-
         for rank in range(_get_least_preferred_rank_to_be_verified(
                 applicant=applicant,
                 assigned_contract_id=matching[applicant.applicant_id])

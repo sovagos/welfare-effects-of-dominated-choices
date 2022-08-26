@@ -1,5 +1,4 @@
 from heapq import heappop, heappush
-import math
 import random
 from python.config import PRIORITY_SCORE_CUTOFF_MIN
 from python.matching_state import MatchingState
@@ -57,35 +56,3 @@ def student_proposing_deferred_acceptance(applicants, contracts):
             applicant_id = sc_applicant_id[1]
             matching[applicant_id] = contract_id
     return matching
-
-def compute_priority_score_cutoffs_from_matching(matching, contracts):
-    """ Compute priority-score cutoffs from a matching
-
-    Args:
-        matching (dict): applicant id - contract id pairs. \
-            If an applicant is not matched, then the corresponding contract id is None
-        contracts (dict): dictionary of available contracts (contract)
-
-    Returns:
-        dictionary: contract id: priority-score cutoff pairs
-
-    Notes: 
-        The priority-score cutoff is the priority score of the \
-        admitted applicant with the lowest priority score. \
-        If no applicant is admitted, then the priority-score cutoff is zero.
-
-        Implicit assumptions:
-            - Matching is not an empty (KeyError)
-            - Each applicant who is in a score dictionary is part of the matching
-
-    """
-    priority_score_cutoffs = {}
-    for contract in contracts.values():
-        try:
-            priority_scores_of_admitted_applicants = [priority_score for applicant_id, priority_score in contract.score_dictionary.items() if matching[applicant_id] == contract.contract_id]
-            priority_score_cutoffs[contract.contract_id] = math.floor(min(priority_scores_of_admitted_applicants))
-        except ValueError:
-            priority_score_cutoffs[contract.contract_id] = 0
-        except KeyError:
-            priority_score_cutoffs[contract.contract_id] = 0
-    return priority_score_cutoffs
