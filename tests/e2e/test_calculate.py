@@ -6,18 +6,6 @@ from python.calculate import calculate
 use_cases = [
     {
         "input": {
-            "applicant_id": [],
-            "rank": [],
-            "program_id": [],
-            "contract_id": [],
-            "state_funded": [],
-            "priority_score": [],
-            "capacity": [],
-        },
-        "expected": {}
-    },
-    {
-        "input": {
             "applicant_id": ["A1", "A1", "A1"],
             "rank": [1, 2, 3],
             "program_id": ["P1", "P1", "P2"],
