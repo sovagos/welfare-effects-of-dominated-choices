@@ -1,10 +1,8 @@
-import pandas as pd
-from python.applicant import Applicant
-from python.contract import Contract
-from python.program import Program
 from python.data_utils import create_applicants, create_contracts
-from python.matching_utils import add_single_tie_breaker, compute_priority_score_cutoffs_from_matching, student_proposing_deferred_acceptance, verify_stability
+from python.matching_utils import add_single_tie_breaker, compute_priority_score_cutoffs_from_matching, student_proposing_deferred_acceptance
 from python.validate_data import validate_data
+from python.verify_stability import verify_stability
+
 
 def calculate(data):
     validate_data(data)

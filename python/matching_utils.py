@@ -89,15 +89,3 @@ def compute_priority_score_cutoffs_from_matching(matching, contracts):
         except KeyError:
             priority_score_cutoffs[contract.contract_id] = 0
     return priority_score_cutoffs
-
-def verify_stability(matching, applicants, priority_score_cutoffs):
-    stability = True
-    for applicant in applicants.values():
-        applicant.ranking_sorted.append(None)
-        for rank in range(applicant.ranking_sorted.index(matching[applicant.applicant_id])):
-            stability = stability & (priority_score_cutoffs[applicant.ranking_sorted[rank]] >= math.floor(applicant.priority_scores_sorted[rank]))
-    if stability:
-        print("The allocation is stable.")
-    else:
-        print("The allocation is unstable.")
-    
