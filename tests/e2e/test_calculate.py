@@ -14,10 +14,7 @@ use_cases = [
             "priority_score": [10, 10, 11],
             "capacity": [1, 1, 1],
         },
-        "expected": {"C1": 10, 
-                     "C2": 0,
-                     "C3": 0
-        },
+        "expected": {"C1": 10, "C2": 0, "C3": 0},
     },
     {
         "input": {
@@ -29,9 +26,7 @@ use_cases = [
             "priority_score": [11, 11, 9],
             "capacity": [1, 1, 1],
         },
-        "expected": {"C1": 11,
-                     "C2": 0
-        }
+        "expected": {"C1": 11, "C2": 0},
     },
     {
         "input": {
@@ -43,11 +38,7 @@ use_cases = [
             "priority_score": [10, 10, 10, 11, 11],
             "capacity": [1, 1, 1, 1, 1],
         },
-        "expected": {
-            "C1": 11,
-            "C2": 11,
-            "C3": 10
-        }
+        "expected": {"C1": 11, "C2": 11, "C3": 10},
     },
     {
         "input": {
@@ -59,11 +50,7 @@ use_cases = [
             "priority_score": [9, 10, 11],
             "capacity": [1, 1, 1],
         },
-        "expected": {
-            "C1": 9,
-            "C2": 10,
-            "C3": 11
-        }
+        "expected": {"C1": 9, "C2": 10, "C3": 11},
     },
     {
         "input": {
@@ -75,9 +62,7 @@ use_cases = [
             "priority_score": [11, 10, 9],
             "capacity": [2, 2, 2],
         },
-        "expected": {
-            "C1": 10
-        }
+        "expected": {"C1": 10},
     },
 ]
 

@@ -1,6 +1,7 @@
 class Program:
     """A class representing a program."""
-    def __init__(self, program_id, contracts = []):
+
+    def __init__(self, program_id, contracts=[]):
         self.program_id = program_id
         self.contracts = contracts[:]
         self.state_funded = None
@@ -11,7 +12,7 @@ class Program:
                 self.state_funded = c
             elif c.state_funded == False:
                 self.self_funded = c
-                
+
     def create_self_funded_program_dictionary(self):
         if (self.self_funded != None) & (self.state_funded != None):
             return {self.self_funded.contract_id: self.state_funded.contract_id}
