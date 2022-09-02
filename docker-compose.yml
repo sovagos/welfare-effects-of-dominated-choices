@@ -1,21 +1,12 @@
 version: '3'
 
 services:
-
-  python_shell:
-    image: ${APP_NAME}:base
-    ports:
-      - "8080:8080"
-    volumes:
-      - .:/usr/src/app
-    env_file:
-      - .env
-  test:
-    image: ${APP_NAME}:base
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     working_dir: /usr/src/app
     volumes:
       - ./:/usr/src/app/
-    env_file: .env
-      
