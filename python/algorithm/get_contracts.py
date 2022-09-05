@@ -1,4 +1,9 @@
-from python.algorithm.applicant import Applicant
+from python.algorithm.applicant import (
+    Applicant,
+    ApplicantStatusType,
+    RejectedApplicantStatus,
+    AdmittedApplicantStatus,
+)
 from python.algorithm.contract import Contract, AdmittedApplicant
 from python.algorithm.get_marginal_admitted_applicant import (
     get_marginal_admitted_applicant,
@@ -9,6 +14,9 @@ from python.algorithm.has_marginal_admitted_applicant import (
     has_marginal_admitted_applicant,
 )
 from python.algorithm.has_proposer import has_proposer
+from python.algorithm.remove_marginal_admitted_applicant import (
+    remove_marginal_admitted_applicant,
+)
 
 
 def get_contracts(
@@ -40,11 +48,33 @@ def get_contracts(
         marginal_admitted_applicant = get_marginal_admitted_applicant(
             contract=contract_with_admitted_proposer
         )
+        # Remove marginal admitted applicant from contract_with_admitted_proposer
+        contract_without_marginal_admitted_applicant = (
+            remove_marginal_admitted_applicant(
+                contract=contract_with_admitted_proposer,
+                marginal_admitted_applicant=marginal_admitted_applicant,
+            )
+        )
 
-    # Remove marginal admitted applicant from contract_with_admitted_proposer
     # Update contracts with the updated contract
     ## Contracts are updated
 
     # Update status of proposer to admitted in applicants
+    for index, applicant in enumerate(applicants):
+        if proposer == applicant:
+            applicants[index].status = (
+                AdmittedApplicantStatus({"rank": 1})
+                if applicants[index].status.type == ApplicantStatusType.INIT
+                else AdmittedApplicantStatus(
+                    {"rank": applicants[index].status.rank + 1}
+                )
+            )
+
     # Update status of marginal admitted applicant to rejected/exhausted in applicants
+    for index, applicant in enumerate(applicants):
+        if marginal_admitted_applicant == applicant:
+            applicants[index].status = RejectedApplicantStatus(
+                {"rank": applicants[index].status.rank}
+            )
+
     ## Applicants are updated
