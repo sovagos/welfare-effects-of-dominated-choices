@@ -57,11 +57,15 @@ def get_contracts(
         )
 
     # Update contracts with the updated contract
+    for index, contract in enumerate(contracts):
+        if contract.id == contract_without_marginal_admitted_applicant.id:
+            contracts[index] = contract_without_marginal_admitted_applicant
+
     ## Contracts are updated
 
     # Update status of proposer to admitted in applicants
     for index, applicant in enumerate(applicants):
-        if proposer == applicant:
+        if applicant.id == proposer.id:
             applicants[index].status = (
                 AdmittedApplicantStatus({"rank": 1})
                 if applicants[index].status.type == ApplicantStatusType.INIT
@@ -72,7 +76,7 @@ def get_contracts(
 
     # Update status of marginal admitted applicant to rejected/exhausted in applicants
     for index, applicant in enumerate(applicants):
-        if marginal_admitted_applicant == applicant:
+        if applicant.id == marginal_admitted_applicant.applicant_id:
             applicants[index].status = RejectedApplicantStatus(
                 {"rank": applicants[index].status.rank}
             )
