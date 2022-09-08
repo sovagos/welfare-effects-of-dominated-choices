@@ -17,6 +17,16 @@ from python.algorithm.has_proposer import has_proposer
 from python.algorithm.remove_marginal_admitted_applicant import (
     remove_marginal_admitted_applicant,
 )
+from python.algorithm.update_applicants_with_proposer import (
+    update_applicants_with_proposer,
+)
+from python.algorithm.update_contracts_with_proposed_contract import (
+    update_contracts_with_proposed_contract,
+)
+from python.algorithm.update_marginal_admitted_applicant import (
+    update_marginal_admitted_applicant,
+)
+from python.algorithm.update_proposer import update_proposer
 
 
 def get_contracts(
@@ -32,6 +42,12 @@ def get_contracts(
     [proposed_contract] = [
         contract for contract in contracts if contract.id == application.contract
     ]
+
+    # Update status of proposer to admitted in applicants
+    updated_proposer = update_proposer(applicant=proposer)
+    applicants = update_applicants_with_proposer(
+        applicants=applicants, proposer=updated_proposer
+    )
 
     contract_with_admitted_proposer = Contract(
         id=proposed_contract.id,
@@ -55,30 +71,20 @@ def get_contracts(
                 marginal_admitted_applicant=marginal_admitted_applicant,
             )
         )
+        # Update status of marginal admitted applicant to rejected/exhausted in applicants
+        marginally_rejected_applicant = update_marginal_admitted_applicant(
+            applicants=applicants,
+            marginal_admitted_applicant=marginal_admitted_applicant,
+        )
+        applicants = update_applicants_with_proposer(
+            applicants=applicants, proposer=marginally_rejected_applicant
+        )
+        ## Applicants are updated
 
     # Update contracts with the updated contract
-    for index, contract in enumerate(contracts):
-        if contract.id == contract_without_marginal_admitted_applicant.id:
-            contracts[index] = contract_without_marginal_admitted_applicant
+    contracts = update_contracts_with_proposed_contract(
+        contracts=contracts,
+        proposed_contract=contract_without_marginal_admitted_applicant,
+    )
 
     ## Contracts are updated
-
-    # Update status of proposer to admitted in applicants
-    for index, applicant in enumerate(applicants):
-        if applicant.id == proposer.id:
-            applicants[index].status = (
-                AdmittedApplicantStatus({"rank": 1})
-                if applicants[index].status.type == ApplicantStatusType.INIT
-                else AdmittedApplicantStatus(
-                    {"rank": applicants[index].status.rank + 1}
-                )
-            )
-
-    # Update status of marginal admitted applicant to rejected/exhausted in applicants
-    for index, applicant in enumerate(applicants):
-        if applicant.id == marginal_admitted_applicant.applicant_id:
-            applicants[index].status = RejectedApplicantStatus(
-                {"rank": applicants[index].status.rank}
-            )
-
-    ## Applicants are updated
