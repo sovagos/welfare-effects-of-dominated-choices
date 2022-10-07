@@ -59,3 +59,8 @@ Contracts = dict[str, Contract]
 class ContractWithScore:
     id: str
     score: int
+
+@dataclass
+class Input:
+    contracts: list[Contract]
+    applicants: list[Applicant]
