@@ -5,7 +5,7 @@ from python.get_contracts.get_contracts_with_scores import (
 )
 from tests.unit.helpers import (
     create_contract,
-    create_contract_with_score,
+    create_contract_with_priority_score_cutoff,
     create_admitted_applicant,
 )
 
@@ -25,7 +25,7 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_score({"id": "[X]", "score": 1})],
+        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 1})],
     },
     {
         "input": [
@@ -38,7 +38,7 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_score({"id": "[X]", "score": 1})],
+        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 1})],
     },
     {
         "input": [
@@ -52,7 +52,7 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_score({"id": "[X]", "score": 1})],
+        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 1})],
     },
     {
         "input": [
@@ -63,7 +63,7 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_score({"id": "[X]", "score": 0})],
+        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 0})],
     },
 ]
 

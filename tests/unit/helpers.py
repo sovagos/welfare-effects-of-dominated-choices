@@ -10,7 +10,7 @@ from python.types import (
     RejectedApplicantStatus,
     Contract,
     AdmittedApplicant,
-    ContractWithScore, Input,
+    ContractWithPriorityScoreCutoff, Input,
 )
 
 
@@ -70,6 +70,8 @@ def create_contract(override=None) -> Contract:
         **{
             "id": get_random_string(),
             "capacity": get_random_int(),
+            "program_id": get_random_string(),
+            "state_funded": True,
             "admitted_applicants": [],
             **override,
         }
@@ -95,13 +97,13 @@ def to_map_by_id(elements: list[T]) -> dict[str, T]:
     return {element.id: element for element in elements}
 
 
-def create_contract_with_score(override=None) -> ContractWithScore:
+def create_contract_with_priority_score_cutoff(override=None) -> ContractWithPriorityScoreCutoff:
     if not override:
         override = {}
-    return ContractWithScore(
+    return ContractWithPriorityScoreCutoff(
         **{
             "id": get_random_string(),
-            "score": get_random_int(),
+            "priority_score_cutoff": get_random_int(),
             **override,
         }
     )

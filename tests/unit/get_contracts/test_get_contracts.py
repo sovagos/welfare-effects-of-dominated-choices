@@ -4,7 +4,7 @@ from python.get_contracts.get_contracts import (
     get_contracts,
 )
 from tests.unit.helpers import (
-    create_contract_with_score,
+    create_contract_with_priority_score_cutoff,
     create_contract,
     create_applicant,
     create_application,
@@ -31,9 +31,9 @@ use_cases = [
             )
         ],
         "expected": [
-            create_contract_with_score({"id": "C1", "score": 10}),
-            create_contract_with_score({"id": "C2", "score": 0}),
-            create_contract_with_score({"id": "C3", "score": 0}),
+            create_contract_with_priority_score_cutoff({"id": "C1", "priority_score_cutoff": 10}),
+            create_contract_with_priority_score_cutoff({"id": "C2", "priority_score_cutoff": 0}),
+            create_contract_with_priority_score_cutoff({"id": "C3", "priority_score_cutoff": 0}),
         ],
     },
     {
@@ -61,8 +61,8 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_score({"id": "C1", "score": 11}),
-            create_contract_with_score({"id": "C2", "score": 0}),
+            create_contract_with_priority_score_cutoff({"id": "C1", "priority_score_cutoff": 11}),
+            create_contract_with_priority_score_cutoff({"id": "C2", "priority_score_cutoff": 0}),
         ],
     },
     {
@@ -100,9 +100,9 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_score({"id": "C1", "score": 11}),
-            create_contract_with_score({"id": "C2", "score": 11}),
-            create_contract_with_score({"id": "C3", "score": 10}),
+            create_contract_with_priority_score_cutoff({"id": "C1", "priority_score_cutoff": 11}),
+            create_contract_with_priority_score_cutoff({"id": "C2", "priority_score_cutoff": 11}),
+            create_contract_with_priority_score_cutoff({"id": "C3", "priority_score_cutoff": 10}),
         ],
     },
     {
@@ -138,9 +138,9 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_score({"id": "C1", "score": 9}),
-            create_contract_with_score({"id": "C2", "score": 10}),
-            create_contract_with_score({"id": "C3", "score": 11}),
+            create_contract_with_priority_score_cutoff({"id": "C1", "priority_score_cutoff": 9}),
+            create_contract_with_priority_score_cutoff({"id": "C2", "priority_score_cutoff": 10}),
+            create_contract_with_priority_score_cutoff({"id": "C3", "priority_score_cutoff": 11}),
         ],
     },
     {
@@ -174,7 +174,7 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_score({"id": "C1", "score": 10}),
+            create_contract_with_priority_score_cutoff({"id": "C1", "priority_score_cutoff": 10}),
         ],
     },
 ]

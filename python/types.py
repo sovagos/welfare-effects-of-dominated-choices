@@ -48,6 +48,8 @@ class AdmittedApplicant:
 class Contract:
     id: str
     capacity: int
+    program_id: str
+    state_funded: bool
     admitted_applicants: list[AdmittedApplicant]
 
 
@@ -56,9 +58,9 @@ Contracts = dict[str, Contract]
 
 
 @dataclass
-class ContractWithScore:
+class ContractWithPriorityScoreCutoff:
     id: str
-    score: int
+    priority_score_cutoff: int
 
 
 @dataclass

@@ -2,14 +2,14 @@ from functools import reduce
 
 from math import floor
 
-from python.types import ContractWithScore, Contract, AdmittedApplicant
+from python.types import ContractWithPriorityScoreCutoff, Contract, AdmittedApplicant
 
 
-def get_contracts_with_scores(contracts: list[Contract]) -> list[ContractWithScore]:
+def get_contracts_with_scores(contracts: list[Contract]) -> list[ContractWithPriorityScoreCutoff]:
     return [
-        ContractWithScore(
+        ContractWithPriorityScoreCutoff(
             id=contract.id,
-            score=_get_score(admitted_applicants=contract.admitted_applicants),
+            priority_score_cutoff=_get_score(admitted_applicants=contract.admitted_applicants),
         )
         for contract in contracts
     ]

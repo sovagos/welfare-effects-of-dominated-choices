@@ -10,4 +10,6 @@ def remove_admitted_applicant_from_contract(
         admitted_applicants=[
             _ for _ in contract.admitted_applicants if _.applicant_id != applicant_id
         ],
+        program_id=contract.program_id,
+        state_funded=contract.state_funded
     )
