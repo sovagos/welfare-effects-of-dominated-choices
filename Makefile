@@ -9,6 +9,9 @@ test:
 test-e2e:
 	$(DOCKER_RUN_BASH) "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/e2e"
 
+test-integration:
+	$(DOCKER_RUN_BASH) "PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/integration"
+
 format-code:
 	$(DOCKER_RUN_BASH) "black ."
 
