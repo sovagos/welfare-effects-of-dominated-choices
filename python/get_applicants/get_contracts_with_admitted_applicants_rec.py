@@ -13,12 +13,12 @@ from python.get_applicants.libs.reject_next_application import reject_next_appli
 from python.get_applicants.libs.remove_admitted_applicant_from_contract import (
     remove_admitted_applicant_from_contract,
 )
-from python.get_applicants.types import Applicants, Contacts, AdmittedApplicant
+from python.get_applicants.types import Applicants, Contracts, AdmittedApplicant
 
 
-def get_applicants_rec(applicants: Applicants, contracts: Contacts) -> Applicants:
+def get_contracts_with_admitted_applicants_rec(applicants: Applicants, contracts: Contracts) -> Contracts:
     if not has_proposer(applicants=applicants):
-        return applicants
+        return contracts
 
     proposer = get_next_proposer(applicants=applicants)
     application = get_next_application(applicant=proposer)
@@ -31,7 +31,7 @@ def get_applicants_rec(applicants: Applicants, contracts: Contacts) -> Applicant
             ),
             contract=proposed_contract,
         )
-        return get_applicants_rec(
+        return get_contracts_with_admitted_applicants_rec(
             applicants={**applicants, admitted_applicant.id: admitted_applicant},
             contracts={
                 **contracts,
@@ -42,7 +42,7 @@ def get_applicants_rec(applicants: Applicants, contracts: Contacts) -> Applicant
         marginal_applicant = get_marginal_admitted_applicant(contract=proposed_contract)
         if marginal_applicant.priority_score > application.priority_score:
             rejected_applicant = reject_next_application(applicant=proposer)
-            return get_applicants_rec(
+            return get_contracts_with_admitted_applicants_rec(
                 applicants={**applicants, rejected_applicant.id: rejected_applicant},
                 contracts=contracts,
             )
@@ -59,7 +59,7 @@ def get_applicants_rec(applicants: Applicants, contracts: Contacts) -> Applicant
                     applicant_id=rejected_applicant.id, contract=proposed_contract
                 ),
             )
-            return get_applicants_rec(
+            return get_contracts_with_admitted_applicants_rec(
                 applicants={
                     **applicants,
                     rejected_applicant.id: rejected_applicant,

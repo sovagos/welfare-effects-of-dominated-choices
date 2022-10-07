@@ -52,4 +52,4 @@ class Contract:
 
 
 Applicants = dict[str, Applicant]
-Contacts = dict[str, Contract]
+Contracts = dict[str, Contract]

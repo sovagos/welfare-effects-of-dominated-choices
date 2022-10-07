@@ -1,16 +1,16 @@
 from typing import TypeVar
 
-from python.get_applicants.get_applicants_rec import get_applicants_rec
+from python.get_applicants.get_contracts_with_admitted_applicants_rec import get_contracts_with_admitted_applicants_rec
 from python.get_applicants.types import Applicant, Contract
 
 T = TypeVar("T", Applicant, Contract)
 
 
-def get_applicants(
+def get_contracts_with_admitted_applicants(
     applicants: list[Applicant], contracts: list[Contract]
-) -> list[Applicant]:
+) -> list[Contract]:
     return list(
-        get_applicants_rec(
+        get_contracts_with_admitted_applicants_rec(
             applicants=_to_map_by_id(elements=applicants),
             contracts=_to_map_by_id(elements=contracts),
         ).values()
