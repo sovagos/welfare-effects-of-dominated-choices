@@ -1,6 +1,6 @@
 from typing import TypeVar
 
-from python.get_contracts_with_admitted_applicants.get_contracts_with_admitted_applicants_rec import (
+from python.get_contracts.get_contracts_with_admitted_applicants_rec import (
     get_contracts_with_admitted_applicants_rec,
 )
 from python.types import Applicant, Contract

@@ -1,4 +1,4 @@
-from python.get_contracts_with_admitted_applicants.libs.has_marginal_applicant import (
+from python.get_contracts.libs.has_marginal_applicant import (
     is_contract_full,
 )
 from tests.unit.helpers import create_application, create_contract

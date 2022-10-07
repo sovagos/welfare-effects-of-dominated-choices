@@ -1,5 +1,5 @@
 from python.types import InitialApplicantStatus
-from python.get_contracts_with_admitted_applicants.libs.has_proposer import has_proposer
+from python.get_contracts.libs.has_proposer import has_proposer
 from tests.unit.helpers import (
     create_applicant,
     create_application,

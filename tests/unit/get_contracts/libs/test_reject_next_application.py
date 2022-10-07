@@ -1,5 +1,5 @@
 from python.types import ApplicantStatusType, InitialApplicantStatus
-from python.get_contracts_with_admitted_applicants.libs.reject_next_application import (
+from python.get_contracts.libs.reject_next_application import (
     reject_next_application,
 )
 from tests.unit.helpers import (

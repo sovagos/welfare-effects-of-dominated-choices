@@ -1,26 +1,26 @@
-from python.get_contracts_with_admitted_applicants.libs.admint_next_application import (
+from python.get_contracts.libs.admint_next_application import (
     admit_next_application,
 )
-from python.get_contracts_with_admitted_applicants.libs.get_marginal_admitted_applicant import (
+from python.get_contracts.libs.get_marginal_admitted_applicant import (
     get_marginal_admitted_applicant,
 )
-from python.get_contracts_with_admitted_applicants.libs.get_next_application import (
+from python.get_contracts.libs.get_next_application import (
     get_next_application,
 )
-from python.get_contracts_with_admitted_applicants.libs.get_next_proposer import (
+from python.get_contracts_with_admitted_applicants import (
     get_next_proposer,
 )
-from python.get_contracts_with_admitted_applicants.libs.has_marginal_applicant import (
+from python.get_contracts.libs.has_marginal_applicant import (
     is_contract_full,
 )
-from python.get_contracts_with_admitted_applicants.libs.has_proposer import has_proposer
-from python.get_contracts_with_admitted_applicants.libs.add_admitted_applicant_to_contract import (
+from python.get_contracts.libs.has_proposer import has_proposer
+from python.get_contracts_with_admitted_applicants import (
     add_admitted_applicant_to_contract,
 )
-from python.get_contracts_with_admitted_applicants.libs.reject_next_application import (
+from python.get_contracts.libs.reject_next_application import (
     reject_next_application,
 )
-from python.get_contracts_with_admitted_applicants.libs.remove_admitted_applicant_from_contract import (
+from python.get_contracts.libs.remove_admitted_applicant_from_contract import (
     remove_admitted_applicant_from_contract,
 )
 from python.types import Applicants, Contracts, AdmittedApplicant

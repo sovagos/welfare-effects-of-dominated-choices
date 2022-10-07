@@ -1,6 +1,6 @@
 import pytest
 
-from python.get_contracts_with_scores.get_contracts_with_scores import (
+from python.get_contracts.get_contracts_with_scores import (
     get_contracts_with_scores,
 )
 from tests.unit.helpers import (

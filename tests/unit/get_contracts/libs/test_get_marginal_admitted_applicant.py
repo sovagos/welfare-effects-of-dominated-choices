@@ -1,8 +1,7 @@
-from python.get_contracts_with_admitted_applicants.libs.get_marginal_admitted_applicant import (
+from python.get_contracts.libs.get_marginal_admitted_applicant import (
     get_marginal_admitted_applicant,
 )
 from tests.unit.helpers import (
-    get_random_string,
     get_random_float,
     create_contract,
     create_admitted_applicant,

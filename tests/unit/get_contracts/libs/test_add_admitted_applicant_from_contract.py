@@ -1,4 +1,4 @@
-from python.get_contracts_with_admitted_applicants.libs.add_admitted_applicant_to_contract import (
+from python.get_contracts.libs.add_admitted_applicant_to_contract import (
     add_admitted_applicant_to_contract,
 )
 from tests.unit.helpers import create_contract, create_admitted_applicant

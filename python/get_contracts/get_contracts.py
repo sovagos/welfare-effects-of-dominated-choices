@@ -1,6 +1,6 @@
-from python.get_contracts_with_admitted_applicants.get_contracts_with_admitted_applicants import \
+from python.get_contracts_with_admitted_applicants import \
     get_contracts_with_admitted_applicants
-from python.get_contracts_with_scores.get_contracts_with_scores import get_contracts_with_scores
+from python.get_contracts.get_contracts_with_scores import get_contracts_with_scores
 from python.types import ContractWithScore, Applicant, Contract
 
 
