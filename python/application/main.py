@@ -7,7 +7,9 @@ from python.application.write_output import write_output
 
 def main(input_file: str, output_file: str) -> None:
     input = get_input(file=input_file)
+    validate_input(input=input)
     contracts = get_contracts(applicants=input.applicants, contracts=input.contracts)
+    validate_stability(contracts=contracts)
     write_output(file=output_file, contracts=contracts)
 
 
