@@ -60,6 +60,7 @@ class ContractWithScore:
     id: str
     score: int
 
+
 @dataclass
 class Input:
     contracts: list[Contract]

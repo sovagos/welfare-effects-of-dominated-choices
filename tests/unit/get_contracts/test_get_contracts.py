@@ -13,8 +13,11 @@ use_cases = [
     },
 ]
 
+
 @pytest.mark.parametrize("use_case", use_cases)
 def test__get_contracts(use_case) -> None:
-    result = get_contracts(contracts=use_case["contracts"], applicants=use_case["applicants"])
+    result = get_contracts(
+        contracts=use_case["contracts"], applicants=use_case["applicants"]
+    )
 
     assert result == use_case["expected"]

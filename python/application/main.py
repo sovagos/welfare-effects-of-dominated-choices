@@ -10,5 +10,6 @@ def main(input_file: str, output_file: str) -> None:
     contracts = get_contracts(applicants=input.applicants, contracts=input.contracts)
     write_output(file=output_file, contracts=contracts)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main(input_file=environ.get("INPUT"), output_file=environ.get("OUTPUT"))

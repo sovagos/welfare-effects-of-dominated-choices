@@ -63,7 +63,7 @@ use_cases = [
                 }
             )
         ],
-        "expected": [],
+        "expected": [create_contract_with_score({"id": "[X]", "score": 0})],
     },
 ]
 

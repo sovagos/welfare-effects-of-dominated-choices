@@ -9,12 +9,20 @@ def get_contracts_with_scores(contracts: list[Contract]) -> list[ContractWithSco
     return [
         ContractWithScore(
             id=contract.id,
-            score=floor(_get_admitted_applicant_with_minimum_point(
-                admitted_applicants=contract.admitted_applicants
-            ).priority_score),
+            score=_get_score(admitted_applicants=contract.admitted_applicants),
         )
-        for contract in contracts if contract.admitted_applicants
+        for contract in contracts
     ]
+
+
+def _get_score(admitted_applicants: list[AdmittedApplicant]) -> int:
+    if not admitted_applicants:
+        return 0
+    return floor(
+        _get_admitted_applicant_with_minimum_point(
+            admitted_applicants=admitted_applicants
+        ).priority_score
+    )
 
 
 def _get_admitted_applicant_with_minimum_point(
