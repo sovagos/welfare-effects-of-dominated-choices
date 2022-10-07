@@ -11,5 +11,5 @@ def remove_admitted_applicant_from_contract(
             _ for _ in contract.admitted_applicants if _.applicant_id != applicant_id
         ],
         program_id=contract.program_id,
-        state_funded=contract.state_funded
+        state_funded=contract.state_funded,
     )

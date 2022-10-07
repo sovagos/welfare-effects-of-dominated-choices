@@ -10,7 +10,8 @@ from python.types import (
     RejectedApplicantStatus,
     Contract,
     AdmittedApplicant,
-    ContractWithPriorityScoreCutoff, Input,
+    ContractWithPriorityScoreCutoff,
+    Input,
 )
 
 
@@ -97,7 +98,9 @@ def to_map_by_id(elements: list[T]) -> dict[str, T]:
     return {element.id: element for element in elements}
 
 
-def create_contract_with_priority_score_cutoff(override=None) -> ContractWithPriorityScoreCutoff:
+def create_contract_with_priority_score_cutoff(
+    override=None,
+) -> ContractWithPriorityScoreCutoff:
     if not override:
         override = {}
     return ContractWithPriorityScoreCutoff(
@@ -107,6 +110,7 @@ def create_contract_with_priority_score_cutoff(override=None) -> ContractWithPri
             **override,
         }
     )
+
 
 def create_input(override=None) -> Input:
     if not override:

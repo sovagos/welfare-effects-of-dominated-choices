@@ -25,7 +25,11 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 1})],
+        "expected": [
+            create_contract_with_priority_score_cutoff(
+                {"id": "[X]", "priority_score_cutoff": 1}
+            )
+        ],
     },
     {
         "input": [
@@ -38,7 +42,11 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 1})],
+        "expected": [
+            create_contract_with_priority_score_cutoff(
+                {"id": "[X]", "priority_score_cutoff": 1}
+            )
+        ],
     },
     {
         "input": [
@@ -52,7 +60,11 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 1})],
+        "expected": [
+            create_contract_with_priority_score_cutoff(
+                {"id": "[X]", "priority_score_cutoff": 1}
+            )
+        ],
     },
     {
         "input": [
@@ -63,7 +75,11 @@ use_cases = [
                 }
             )
         ],
-        "expected": [create_contract_with_priority_score_cutoff({"id": "[X]", "priority_score_cutoff": 0})],
+        "expected": [
+            create_contract_with_priority_score_cutoff(
+                {"id": "[X]", "priority_score_cutoff": 0}
+            )
+        ],
     },
 ]
 

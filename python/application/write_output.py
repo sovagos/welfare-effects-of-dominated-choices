@@ -1,5 +1,5 @@
-from python.types import ContractWithScore
+from python.types import ContractWithPriorityScoreCutoff
 
 
-def write_output(file: str, contracts: list[ContractWithScore]) -> None:
+def write_output(file: str, contracts: list[ContractWithPriorityScoreCutoff]) -> None:
     pass

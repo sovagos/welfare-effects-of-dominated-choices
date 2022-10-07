@@ -5,11 +5,15 @@ from math import floor
 from python.types import ContractWithPriorityScoreCutoff, Contract, AdmittedApplicant
 
 
-def get_contracts_with_scores(contracts: list[Contract]) -> list[ContractWithPriorityScoreCutoff]:
+def get_contracts_with_scores(
+    contracts: list[Contract],
+) -> list[ContractWithPriorityScoreCutoff]:
     return [
         ContractWithPriorityScoreCutoff(
             id=contract.id,
-            priority_score_cutoff=_get_score(admitted_applicants=contract.admitted_applicants),
+            priority_score_cutoff=_get_score(
+                admitted_applicants=contract.admitted_applicants
+            ),
         )
         for contract in contracts
     ]
