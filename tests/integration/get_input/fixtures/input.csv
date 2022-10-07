@@ -1,3 +1,4 @@
-A72866,3,0,C1,0,0,0
-A94708,1,80,C10,80,19,1
-A70101,1,80,C10,80,19,1
+applicant_id,rank,priority_score,contract_id,capacity,state_funded,program_id,admitted
+A72866,3,0,C1,0,0,P1,0
+A94708,1,80,C10,19,1,P2,1
+A70101,1,80,C10,19,1,P2,1

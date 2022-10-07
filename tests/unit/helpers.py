@@ -10,7 +10,7 @@ from python.types import (
     RejectedApplicantStatus,
     Contract,
     AdmittedApplicant,
-    ContractWithScore,
+    ContractWithScore, Input,
 )
 
 
@@ -102,6 +102,17 @@ def create_contract_with_score(override=None) -> ContractWithScore:
         **{
             "id": get_random_string(),
             "score": get_random_int(),
+            **override,
+        }
+    )
+
+def create_input(override=None) -> Input:
+    if not override:
+        override = {}
+    return Input(
+        **{
+            "contracts": [],
+            "applicants": [],
             **override,
         }
     )
