@@ -7,14 +7,14 @@ from python.get_contracts.libs.get_marginal_admitted_applicant import (
 from python.get_contracts.libs.get_next_application import (
     get_next_application,
 )
-from python.get_contracts_with_admitted_applicants import (
+from python.get_contracts.libs.get_next_proposer import (
     get_next_proposer,
 )
 from python.get_contracts.libs.has_marginal_applicant import (
     is_contract_full,
 )
 from python.get_contracts.libs.has_proposer import has_proposer
-from python.get_contracts_with_admitted_applicants import (
+from python.get_contracts.libs.add_admitted_applicant_to_contract import (
     add_admitted_applicant_to_contract,
 )
 from python.get_contracts.libs.reject_next_application import (
