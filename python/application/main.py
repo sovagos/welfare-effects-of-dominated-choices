@@ -1,8 +1,8 @@
 from os import environ
 
 from python.get_contracts.get_contracts import get_contracts
-from python.get_input import get_input
-from python.write_output import write_output
+from python.application.get_input import get_input
+from python.application.write_output import write_output
 
 
 def main(input_file: str, output_file: str) -> None:
