@@ -1,4 +1,4 @@
-from python.get_applicants.types import Contract
+from python.types import Contract
 
 
 def remove_admitted_applicant_from_contract(

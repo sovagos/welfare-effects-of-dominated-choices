@@ -1,6 +1,6 @@
 from functools import reduce
 
-from python.get_applicants.types import Contract, AdmittedApplicant
+from python.types import Contract, AdmittedApplicant
 
 
 def get_marginal_admitted_applicant(contract: Contract) -> AdmittedApplicant:

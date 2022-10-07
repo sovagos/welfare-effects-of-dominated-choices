@@ -1,8 +1,11 @@
-from python.get_applicants.libs.remove_admitted_applicant_from_contract import (
+from python.get_contracts_with_admitted_applicants.libs.remove_admitted_applicant_from_contract import (
     remove_admitted_applicant_from_contract,
 )
-from tests.unit.get_applicants.helpers import create_admitted_applicant, create_contract
-from tests.unit.helpers import get_random_string
+from tests.unit.helpers import (
+    get_random_string,
+    create_contract,
+    create_admitted_applicant,
+)
 
 
 def test__remove_admitted_applicant_from_contract__removes_admitted_applicant() -> None:

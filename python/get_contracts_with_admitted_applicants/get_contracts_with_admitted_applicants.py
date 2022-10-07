@@ -1,7 +1,9 @@
 from typing import TypeVar
 
-from python.get_applicants.get_contracts_with_admitted_applicants_rec import get_contracts_with_admitted_applicants_rec
-from python.get_applicants.types import Applicant, Contract
+from python.get_contracts_with_admitted_applicants.get_contracts_with_admitted_applicants_rec import (
+    get_contracts_with_admitted_applicants_rec,
+)
+from python.types import Applicant, Contract
 
 T = TypeVar("T", Applicant, Contract)
 
@@ -17,5 +19,5 @@ def get_contracts_with_admitted_applicants(
     )
 
 
-def _to_map_by_id(elements: list[T]) -> dict[T.id, T]:
+def _to_map_by_id(elements: list[T]) -> dict[str, T]:
     return {element.id: element for element in elements}

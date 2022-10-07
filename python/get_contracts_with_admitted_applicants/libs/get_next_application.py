@@ -1,4 +1,4 @@
-from python.get_applicants.types import Applicant, Application, ApplicantStatusType
+from python.types import Applicant, Application, ApplicantStatusType
 
 
 def get_next_application(applicant: Applicant) -> Application:

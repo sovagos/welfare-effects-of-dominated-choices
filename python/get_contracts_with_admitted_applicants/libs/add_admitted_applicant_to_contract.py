@@ -1,4 +1,4 @@
-from python.get_applicants.types import Contract, AdmittedApplicant
+from python.types import Contract, AdmittedApplicant
 
 
 def add_admitted_applicant_to_contract(

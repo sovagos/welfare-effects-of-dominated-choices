@@ -1,4 +1,4 @@
-from python.get_applicants.types import Applicant, ApplicantStatusType
+from python.types import Applicant, ApplicantStatusType
 
 
 def is_proposer(applicant: Applicant) -> bool:

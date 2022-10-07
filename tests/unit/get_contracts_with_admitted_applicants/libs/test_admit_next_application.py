@@ -1,9 +1,11 @@
-from python.get_applicants.types import ApplicantStatusType, InitialApplicantStatus
-from python.get_applicants.libs.admint_next_application import admit_next_application
-from tests.unit.get_applicants.helpers import (
+from python.types import ApplicantStatusType, InitialApplicantStatus
+from python.get_contracts_with_admitted_applicants.libs.admint_next_application import (
+    admit_next_application,
+)
+from tests.unit.helpers import (
     create_applicant,
-    create_rejected_applicant_status,
     create_application,
+    create_rejected_applicant_status,
 )
 
 

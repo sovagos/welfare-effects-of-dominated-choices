@@ -1,5 +1,5 @@
-from python.get_applicants.libs.is_proposer import is_proposer
-from python.get_applicants.types import Applicants, Applicant
+from python.get_contracts_with_admitted_applicants.libs.is_proposer import is_proposer
+from python.types import Applicants, Applicant
 from python.libs.find import find
 
 

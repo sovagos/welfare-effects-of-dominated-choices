@@ -1,10 +1,12 @@
-from python.get_applicants.types import InitialApplicantStatus
-from python.get_applicants.libs.get_next_proposer import get_next_proposer
-from tests.unit.get_applicants.helpers import (
+from python.types import InitialApplicantStatus
+from python.get_contracts_with_admitted_applicants.libs.get_next_proposer import (
+    get_next_proposer,
+)
+from tests.unit.helpers import (
     create_applicant,
-    create_rejected_applicant_status,
     create_application,
     create_admitted_applicant_status,
+    create_rejected_applicant_status,
     to_map_by_id,
 )
 

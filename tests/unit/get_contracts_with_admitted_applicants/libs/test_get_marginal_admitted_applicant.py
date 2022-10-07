@@ -1,8 +1,12 @@
-from python.get_applicants.libs.get_marginal_admitted_applicant import (
+from python.get_contracts_with_admitted_applicants.libs.get_marginal_admitted_applicant import (
     get_marginal_admitted_applicant,
 )
-from tests.unit.get_applicants.helpers import create_admitted_applicant, create_contract
-from tests.unit.helpers import get_random_string, get_random_float
+from tests.unit.helpers import (
+    get_random_string,
+    get_random_float,
+    create_contract,
+    create_admitted_applicant,
+)
 
 
 def test__get_marginal_admitted_applicant__returns_with_the_id() -> None:

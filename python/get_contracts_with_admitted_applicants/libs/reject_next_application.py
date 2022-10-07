@@ -1,4 +1,4 @@
-from python.get_applicants.types import (
+from python.types import (
     Applicant,
     RejectedApplicantStatus,
     ApplicantStatusType,

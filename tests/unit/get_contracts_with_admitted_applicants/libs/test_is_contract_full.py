@@ -1,5 +1,7 @@
-from python.get_applicants.libs.has_marginal_applicant import is_contract_full
-from tests.unit.get_applicants.helpers import create_contract, create_application
+from python.get_contracts_with_admitted_applicants.libs.has_marginal_applicant import (
+    is_contract_full,
+)
+from tests.unit.helpers import create_application, create_contract
 
 
 def test__is_contract_full__it_is_empty__returns_false() -> None:
