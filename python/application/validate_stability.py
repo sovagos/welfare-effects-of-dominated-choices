@@ -1,5 +1,5 @@
-from python.types import Contract
+from python.types import ContractWithPriorityScoreCutoff
 
 
-def validate_stability(contracts: list[Contract]) -> None:
+def validate_stability(contracts: list[ContractWithPriorityScoreCutoff]) -> None:
     pass
