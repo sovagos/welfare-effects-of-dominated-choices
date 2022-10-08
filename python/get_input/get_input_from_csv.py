@@ -16,7 +16,9 @@ class ParsedRow:
 
 
 def get_input_from_csv(csv: list[list[str]]) -> Input:
-    result = reduce(_accumulator, _tail(csv=csv), {"applicants": {}, "contracts": {}})
+    result: dict = reduce(
+        _accumulator, _tail(csv=csv), {"applicants": {}, "contracts": {}}
+    )
     return Input(
         applicants=[*result["applicants"].values()],
         contracts=[*result["contracts"].values()],
@@ -76,7 +78,7 @@ def _get_applicants(
     ranked_applications = _get_ranked_applications_with_new_application(
         ranked_applications=[]
         if parsed_row.applicant_id not in accumulated_applicants
-        else accumulated_applicants.get(parsed_row.applicant_id).ranked_applications,
+        else accumulated_applicants[parsed_row.applicant_id].ranked_applications,
         parsed_row=parsed_row,
     )
     return {

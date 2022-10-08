@@ -34,7 +34,7 @@ def get_contracts_with_admitted_applicants_rec(
 
     proposer = get_next_proposer(applicants=applicants)
     application = get_next_application(applicant=proposer)
-    proposed_contract = contracts.get(application.contract)
+    proposed_contract = contracts[application.contract]
     if not is_contract_full(contract=proposed_contract):
         admitted_applicant = admit_next_application(applicant=proposer)
         contract_with_new_applicant = add_admitted_applicant_to_contract(
@@ -60,7 +60,7 @@ def get_contracts_with_admitted_applicants_rec(
             )
         else:
             rejected_applicant = reject_next_application(
-                applicant=applicants.get(marginal_applicant.applicant_id)
+                applicant=applicants[marginal_applicant.applicant_id]
             )
             admitted_applicant = admit_next_application(applicant=proposer)
             contract_with_new_applicant = add_admitted_applicant_to_contract(

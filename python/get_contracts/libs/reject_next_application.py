@@ -1,3 +1,5 @@
+from typing import Any
+
 from python.types import (
     Applicant,
     RejectedApplicantStatus,
@@ -5,7 +7,7 @@ from python.types import (
 )
 
 
-def reject_next_application(applicant: Applicant) -> Applicant:
+def reject_next_application(applicant: Any) -> Applicant:
     return Applicant(
         id=applicant.id,
         ranked_applications=applicant.ranked_applications,

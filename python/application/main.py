@@ -26,6 +26,6 @@ def main(input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     main(
-        input_file=path.join(INPUT_FOLDER, environ.get("INPUT")),
-        output_file=path.join(OUTPUT_FOLDER, f"result_{environ.get('INPUT')}"),
+        input_file=path.join(INPUT_FOLDER, environ["INPUT"]),
+        output_file=path.join(OUTPUT_FOLDER, f"result_{environ['INPUT']}"),
     )

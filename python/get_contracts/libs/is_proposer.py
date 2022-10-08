@@ -1,7 +1,9 @@
-from python.types import Applicant, ApplicantStatusType
+from typing import Any
+
+from python.types import ApplicantStatusType
 
 
-def is_proposer(applicant: Applicant) -> bool:
+def is_proposer(applicant: Any) -> bool:
     return (
         applicant.status.type == ApplicantStatusType.REJECTED
         and len(applicant.ranked_applications) > applicant.status.rank
