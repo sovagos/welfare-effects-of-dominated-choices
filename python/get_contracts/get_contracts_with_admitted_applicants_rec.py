@@ -35,6 +35,12 @@ def get_contracts_with_admitted_applicants_rec(
     proposer = get_next_proposer(applicants=applicants)
     application = get_next_application(applicant=proposer)
     proposed_contract = contracts[application.contract]
+    if proposed_contract.capacity == 0:
+        rejected_applicant = reject_next_application(applicant=proposer)
+        return get_contracts_with_admitted_applicants_rec(
+            applicants={**applicants, rejected_applicant.id: rejected_applicant},
+            contracts=contracts,
+        )
     if not is_contract_full(contract=proposed_contract):
         admitted_applicant = admit_next_application(applicant=proposer)
         contract_with_new_applicant = add_admitted_applicant_to_contract(
