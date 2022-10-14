@@ -1,3 +1,4 @@
+import sys
 from os import environ, path
 from pathlib import Path
 
@@ -15,6 +16,7 @@ BASE_PATH = path.join(
 INPUT_FOLDER = path.join(BASE_PATH, "input")
 OUTPUT_FOLDER = path.join(BASE_PATH, "output")
 
+sys.setrecursionlimit(10**8)
 
 def main(input_file: str, output_file: str) -> None:
     input = get_input(file=input_file)
