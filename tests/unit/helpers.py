@@ -10,8 +10,8 @@ from python.types import (
     RejectedApplicantStatus,
     Contract,
     AdmittedApplicant,
-    ContractWithPriorityScoreCutoff,
     Input,
+    Matching,
 )
 
 
@@ -91,25 +91,24 @@ def create_admitted_applicant(override=None) -> AdmittedApplicant:
     )
 
 
+def create_matching(override=None) -> Matching:
+    if not override:
+        override = {}
+    return Matching(
+        **{
+            "applicant_id": get_random_string(),
+            "contract_id": get_random_string(),
+            "rank": get_random_int(),
+            **override,
+        }
+    )
+
+
 T = TypeVar("T", Applicant, Contract)
 
 
 def to_map_by_id(elements: list[T]) -> dict[str, T]:
     return {element.id: element for element in elements}
-
-
-def create_contract_with_priority_score_cutoff(
-    override=None,
-) -> ContractWithPriorityScoreCutoff:
-    if not override:
-        override = {}
-    return ContractWithPriorityScoreCutoff(
-        **{
-            "id": get_random_string(),
-            "priority_score_cutoff": get_random_int(),
-            **override,
-        }
-    )
 
 
 def create_input(override=None) -> Input:

@@ -1,13 +1,13 @@
 import pytest
 
-from python.get_contracts.get_contracts import (
-    get_contracts,
+from python.get_matching.get_matching import (
+    get_matching,
 )
 from tests.unit.helpers import (
-    create_contract_with_priority_score_cutoff,
     create_contract,
     create_applicant,
     create_application,
+    create_matching,
 )
 
 
@@ -31,15 +31,7 @@ use_cases = [
             )
         ],
         "expected": [
-            create_contract_with_priority_score_cutoff(
-                {"id": "C1", "priority_score_cutoff": 10}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C2", "priority_score_cutoff": 0}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C3", "priority_score_cutoff": 0}
-            ),
+            create_matching({"applicant_id": "A1", "contract_id": "C1", "rank": 1}),
         ],
     },
     {
@@ -67,11 +59,9 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_priority_score_cutoff(
-                {"id": "C1", "priority_score_cutoff": 11}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C2", "priority_score_cutoff": 0}
+            create_matching({"applicant_id": "A1", "contract_id": "C1", "rank": 1}),
+            create_matching(
+                {"applicant_id": "A2", "contract_id": "Unassigned", "rank": 0}
             ),
         ],
     },
@@ -110,15 +100,9 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_priority_score_cutoff(
-                {"id": "C1", "priority_score_cutoff": 11}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C2", "priority_score_cutoff": 11}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C3", "priority_score_cutoff": 10}
-            ),
+            create_matching({"applicant_id": "A1", "contract_id": "C3", "rank": 3}),
+            create_matching({"applicant_id": "A2", "contract_id": "C1", "rank": 1}),
+            create_matching({"applicant_id": "A3", "contract_id": "C2", "rank": 1}),
         ],
     },
     {
@@ -154,15 +138,9 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_priority_score_cutoff(
-                {"id": "C1", "priority_score_cutoff": 9}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C2", "priority_score_cutoff": 10}
-            ),
-            create_contract_with_priority_score_cutoff(
-                {"id": "C3", "priority_score_cutoff": 11}
-            ),
+            create_matching({"applicant_id": "A1", "contract_id": "C1", "rank": 1}),
+            create_matching({"applicant_id": "A2", "contract_id": "C2", "rank": 1}),
+            create_matching({"applicant_id": "A3", "contract_id": "C3", "rank": 1}),
         ],
     },
     {
@@ -196,17 +174,19 @@ use_cases = [
             ),
         ],
         "expected": [
-            create_contract_with_priority_score_cutoff(
-                {"id": "C1", "priority_score_cutoff": 10}
+            create_matching(
+                {"applicant_id": "A1", "contract_id": "Unassigned", "rank": 0}
             ),
+            create_matching({"applicant_id": "A2", "contract_id": "C1", "rank": 1}),
+            create_matching({"applicant_id": "A3", "contract_id": "C1", "rank": 1}),
         ],
     },
 ]
 
 
 @pytest.mark.parametrize("use_case", use_cases)
-def test__get_contracts(use_case) -> None:
-    result = get_contracts(
+def test__get_matching(use_case) -> None:
+    result = get_matching(
         contracts=use_case["contracts"], applicants=use_case["applicants"]
     )
 

@@ -2,9 +2,7 @@ import sys
 from os import environ, path
 from pathlib import Path
 
-from python.application.validate_input import validate_input
-from python.application.validate_stability import validate_stability
-from python.get_contracts.get_contracts import get_contracts
+from python.get_matching.get_matching import get_matching
 from python.get_input.get_input import get_input
 from python.write_output.write_output import write_output
 
@@ -21,10 +19,8 @@ sys.setrecursionlimit(10**8)
 
 def main(input_file: str, output_file: str) -> None:
     input = get_input(file=input_file)
-    validate_input(input=input)
-    contracts = get_contracts(applicants=input.applicants, contracts=input.contracts)
-    validate_stability(contracts=contracts)
-    write_output(file=output_file, data=contracts)
+    matchings = get_matching(applicants=input.applicants, contracts=input.contracts)
+    write_output(file=output_file, data=matchings)
 
 
 if __name__ == "__main__":

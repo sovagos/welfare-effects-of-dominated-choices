@@ -37,9 +37,9 @@ def test__main() -> None:
 
     result = get_result(input_filename)
     assert result == [
-        ["contract_id", "priority_score_cutoff"],
-        ["C1", "1"],
-        ["C2", "80"],
+        ["applicant_id", "contract_id", "rank"],
+        ["A1", "C1", "1"],
+        ["A2", "C2", "1"],
     ]
 
     clear(input_filename)

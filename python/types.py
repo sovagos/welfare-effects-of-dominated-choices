@@ -58,12 +58,13 @@ Contracts = dict[str, Contract]
 
 
 @dataclass
-class ContractWithPriorityScoreCutoff:
-    id: str
-    priority_score_cutoff: int
-
-
-@dataclass
 class Input:
     contracts: list[Contract]
     applicants: list[Applicant]
+
+
+@dataclass
+class Matching:
+    applicant_id: str
+    contract_id: str
+    rank: int

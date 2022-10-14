@@ -1,6 +1,6 @@
 from typing import TypeVar
 
-from python.get_contracts.run_deferred_acceptance_rec import (
+from python.get_matching.run_deferred_acceptance_rec import (
     run_deferred_acceptance_rec,
 )
 from python.types import Applicant, Contract
@@ -10,7 +10,7 @@ T = TypeVar("T", Applicant, Contract)
 
 def run_deferred_acceptance(
     applicants: list[Applicant], contracts: list[Contract]
-) -> list[Contract]:
+) -> list[Applicant]:
     return list(
         run_deferred_acceptance_rec(
             applicants=_to_map_by_id(elements=applicants),

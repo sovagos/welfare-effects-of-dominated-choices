@@ -1,5 +1,5 @@
 from python.types import InitialApplicantStatus
-from python.get_contracts.libs.get_next_application import (
+from python.get_matching.libs.get_next_application import (
     get_next_application,
 )
 from tests.unit.helpers import (

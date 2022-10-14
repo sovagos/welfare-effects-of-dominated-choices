@@ -1,6 +1,6 @@
 from python.types import ApplicantStatusType, InitialApplicantStatus
-from python.get_contracts.libs.reject_next_application import (
-    reject_next_application,
+from python.get_matching.libs.admint_next_application import (
+    admit_next_application,
 )
 from tests.unit.helpers import (
     create_applicant,
@@ -9,7 +9,7 @@ from tests.unit.helpers import (
 )
 
 
-def reject_next_application__when_status_is_initial__update_admitted_applicant_status_to_rank_of_one():
+def test__admit_next_application__when_status_is_initial__update_admitted_applicant_status_to_rank_of_one():
     applicant = create_applicant(
         {
             "status": InitialApplicantStatus(),
@@ -17,13 +17,13 @@ def reject_next_application__when_status_is_initial__update_admitted_applicant_s
         }
     )
 
-    result = reject_next_application(applicant=applicant)
+    result = admit_next_application(applicant=applicant)
 
-    assert result.status.type == ApplicantStatusType.REJECTED
+    assert result.status.type == ApplicantStatusType.ADMITTED
     assert result.status.rank == 1
 
 
-def reject_next_application__when_status_is_rejected__update_status_to_next_contract():
+def test__admit_next_application__when_status_is_rejected__update_status_to_next_contract():
     applicant = create_applicant(
         {
             "ranked_applications": [create_application(), create_application()],
@@ -31,7 +31,7 @@ def reject_next_application__when_status_is_rejected__update_status_to_next_cont
         }
     )
 
-    result = reject_next_application(applicant=applicant)
+    result = admit_next_application(applicant=applicant)
 
-    assert result.status.type == ApplicantStatusType.REJECTED
+    assert result.status.type == ApplicantStatusType.ADMITTED
     assert result.status.rank == 2

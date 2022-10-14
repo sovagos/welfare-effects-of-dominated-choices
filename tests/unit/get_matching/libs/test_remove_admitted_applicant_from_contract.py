@@ -1,4 +1,4 @@
-from python.get_contracts.libs.remove_admitted_applicant_from_contract import (
+from python.get_matching.libs.remove_admitted_applicant_from_contract import (
     remove_admitted_applicant_from_contract,
 )
 from tests.unit.helpers import (

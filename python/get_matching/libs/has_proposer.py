@@ -1,4 +1,4 @@
-from python.get_contracts.libs.is_proposer import is_proposer
+from python.get_matching.libs.is_proposer import is_proposer
 from python.types import Applicants
 from python.libs.find import find
 
