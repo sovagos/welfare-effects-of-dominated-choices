@@ -1,5 +1,8 @@
 DOCKER_RUN_BASH:=docker-compose run app bash -c
 
+build:
+	@docker-compose build
+
 local_shell:
 	@docker-compose run --service-ports --workdir /usr/src/app --rm app /bin/bash
 
@@ -14,3 +17,6 @@ all-in:
 
 run:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.main"
+
+run-memory-profile:
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m memory_profiler python.application.main"
