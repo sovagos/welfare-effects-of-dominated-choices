@@ -26,7 +26,7 @@ from python.get_contracts.libs.remove_admitted_applicant_from_contract import (
 from python.types import Applicants, Contracts, AdmittedApplicant
 
 
-def get_contracts_with_admitted_applicants_rec(
+def run_deferred_acceptance_rec(
     applicants: Applicants, contracts: Contracts
 ) -> Contracts:
     if not has_proposer(applicants=applicants):
@@ -37,7 +37,7 @@ def get_contracts_with_admitted_applicants_rec(
     proposed_contract = contracts[application.contract]
     if proposed_contract.capacity == 0:
         rejected_applicant = reject_next_application(applicant=proposer)
-        return get_contracts_with_admitted_applicants_rec(
+        return run_deferred_acceptance_rec(
             applicants={**applicants, rejected_applicant.id: rejected_applicant},
             contracts=contracts,
         )
@@ -49,7 +49,7 @@ def get_contracts_with_admitted_applicants_rec(
             ),
             contract=proposed_contract,
         )
-        return get_contracts_with_admitted_applicants_rec(
+        return run_deferred_acceptance_rec(
             applicants={**applicants, admitted_applicant.id: admitted_applicant},
             contracts={
                 **contracts,
@@ -60,7 +60,7 @@ def get_contracts_with_admitted_applicants_rec(
         marginal_applicant = get_marginal_admitted_applicant(contract=proposed_contract)
         if marginal_applicant.priority_score > application.priority_score:
             rejected_applicant = reject_next_application(applicant=proposer)
-            return get_contracts_with_admitted_applicants_rec(
+            return run_deferred_acceptance_rec(
                 applicants={**applicants, rejected_applicant.id: rejected_applicant},
                 contracts=contracts,
             )
@@ -77,7 +77,7 @@ def get_contracts_with_admitted_applicants_rec(
                     applicant_id=rejected_applicant.id, contract=proposed_contract
                 ),
             )
-            return get_contracts_with_admitted_applicants_rec(
+            return run_deferred_acceptance_rec(
                 applicants={
                     **applicants,
                     rejected_applicant.id: rejected_applicant,

@@ -18,6 +18,7 @@ OUTPUT_FOLDER = path.join(BASE_PATH, "output")
 
 sys.setrecursionlimit(10**8)
 
+
 def main(input_file: str, output_file: str) -> None:
     input = get_input(file=input_file)
     validate_input(input=input)
