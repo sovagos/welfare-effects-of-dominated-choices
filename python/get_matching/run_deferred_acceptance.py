@@ -13,8 +13,8 @@ def run_deferred_acceptance(
 ) -> list[Applicant]:
     return list(
         run_deferred_acceptance_rec(
-            applicants=_to_map_by_id(elements=applicants),
-            contracts=_to_map_by_id(elements=contracts),
+            _to_map_by_id(elements=applicants),
+            _to_map_by_id(elements=contracts),
         ).values()
     )
 
