@@ -1,9 +1,11 @@
-from csv import reader
+import datetime
+from csv import DictReader
 
 
-def get_data_from_file(file: str) -> list[list[str]]:
+def get_data_from_file(file: str) -> list[dict]:
     result = []
     with open(file) as csvfile:
-        for row in reader(csvfile):
+        reader = DictReader(csvfile)
+        for row in reader:
             result.append(row)
     return result

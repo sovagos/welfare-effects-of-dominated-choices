@@ -11,6 +11,8 @@ T = TypeVar("T", Applicant, Contract)
 def run_deferred_acceptance(
     applicants: list[Applicant], contracts: list[Contract]
 ) -> list[Applicant]:
+    print(f"apllicants count: {len(applicants)}")
+    print(f"contracts count: {len(applicants)}")
     return list(
         run_deferred_acceptance_rec(
             _to_map_by_id(elements=applicants),
