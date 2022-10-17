@@ -136,3 +136,4 @@ tests/integration/write_output/output/*
 !output/.keep
 !input/.keep
 !tests/integration/write_output/output/.keep
+tmp/*
