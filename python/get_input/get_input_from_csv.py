@@ -1,7 +1,9 @@
-import datetime
 from dataclasses import dataclass
-from typing import Any, TypeVar, Callable
+from typing import TypeVar, Callable, Any
 from python.types import Input, Contract, Applicant, InitialApplicantStatus, Application
+
+T = TypeVar("T")
+K = TypeVar("K")
 
 
 @dataclass
@@ -15,23 +17,31 @@ class ParsedRow:
     program_id: str
 
 
+@dataclass
+class RawApplication:
+    rank: int
+    application: Application
+
+
+@dataclass
+class RawApplicant:
+    id: str
+    ranked_applications: list[RawApplication]
+
+
 def get_input_from_csv(csv: list[dict]) -> Input:
-    print("start parse", datetime.datetime.now())
-    result: dict = _reduce(_accumulator, csv, {"applicants": {}, "contracts": {}})
-    print("end parse", datetime.datetime.now())
+    result: dict = _reduce(_accumulator, csv, {"raw_applicants": {}, "contracts": {}})
     return Input(
-        applicants=[*result["applicants"].values()],
+        applicants=_convert_raw_applicants_to_applicants(
+            raw_applicants=[*result["raw_applicants"].values()]
+        ),
         contracts=[*result["contracts"].values()],
     )
 
 
-T = TypeVar("T")
-K = TypeVar("K")
-
-
 def _reduce(fn: Callable[[T, K], T], items: list[K], init: T) -> T:
     result = init
-    for id, item in enumerate(items):
+    for item in items:
         result = fn(result, item)
     return result
 
@@ -42,8 +52,8 @@ def _accumulator(accumulated: dict, row: dict) -> dict:
         "contracts": _get_contracts(
             accumulated_contracts=accumulated["contracts"], parsed_row=parsed_row
         ),
-        "applicants": _get_applicants(
-            accumulated_applicants=accumulated["applicants"], parsed_row=parsed_row
+        "raw_applicants": _get_applicants(
+            accumulated_applicants=accumulated["raw_applicants"], parsed_row=parsed_row
         ),
     }
 
@@ -78,8 +88,8 @@ def _get_contracts(
 
 
 def _get_applicants(
-    accumulated_applicants: dict[str, Applicant], parsed_row: ParsedRow
-) -> dict[str, Applicant]:
+    accumulated_applicants: dict[str, RawApplicant], parsed_row: ParsedRow
+) -> dict[str, RawApplicant]:
     ranked_applications = _get_ranked_applications_with_new_application(
         ranked_applications=[]
         if parsed_row.applicant_id not in accumulated_applicants
@@ -88,22 +98,44 @@ def _get_applicants(
     )
     return {
         **accumulated_applicants,
-        parsed_row.applicant_id: Applicant(
+        parsed_row.applicant_id: RawApplicant(
             id=parsed_row.applicant_id,
             ranked_applications=ranked_applications,
-            status=InitialApplicantStatus(),
         ),
     }
 
 
 def _get_ranked_applications_with_new_application(
-    ranked_applications: list[Application], parsed_row: ParsedRow
-) -> list[Application]:
-    ranked_applications = [*ranked_applications]
-    ranked_applications.insert(
-        parsed_row.rank - 1,
-        Application(
-            contract=parsed_row.contract_id, priority_score=parsed_row.priority_score
+    ranked_applications: list[RawApplication], parsed_row: ParsedRow
+) -> list[RawApplication]:
+    return [
+        *ranked_applications,
+        RawApplication(
+            rank=parsed_row.rank,
+            application=Application(
+                contract=parsed_row.contract_id,
+                priority_score=parsed_row.priority_score,
+            ),
         ),
+    ]
+
+
+def _convert_raw_applicants_to_applicants(
+    raw_applicants: list[RawApplicant],
+) -> list[Applicant]:
+    return [
+        _get_applicant_from_raw_applicant(raw_applicant=raw_applicant)
+        for raw_applicant in raw_applicants
+    ]
+
+
+def _get_applicant_from_raw_applicant(raw_applicant: Any) -> Applicant:
+    raw_ranked_applications = [*raw_applicant.ranked_applications]
+    raw_ranked_applications.sort(key=lambda _: _.rank)
+    return Applicant(
+        status=InitialApplicantStatus(),
+        id=raw_applicant.id,
+        ranked_applications=[
+            raw_application.application for raw_application in raw_ranked_applications
+        ],
     )
-    return ranked_applications
