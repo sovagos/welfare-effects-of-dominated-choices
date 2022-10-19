@@ -68,3 +68,10 @@ class Matching:
     applicant_id: str
     contract_id: str
     rank: int
+
+
+@dataclass
+class ApplicantsNew:
+    exhausted: list[Applicant]
+    proposer: list[Applicant]
+    admitted: dict[str, Applicant]
