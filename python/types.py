@@ -53,7 +53,6 @@ class Contract:
     admitted_applicants: list[AdmittedApplicant]
 
 
-Applicants = dict[str, Applicant]
 Contracts = dict[str, Contract]
 
 
@@ -71,7 +70,7 @@ class Matching:
 
 
 @dataclass
-class ApplicantsNew:
+class Applicants:
     exhausted: list[Applicant]
     proposer: list[Applicant]
     admitted: dict[str, Applicant]

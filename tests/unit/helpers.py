@@ -12,7 +12,7 @@ from python.types import (
     AdmittedApplicant,
     Input,
     Matching,
-    ApplicantsNew,
+    Applicants,
 )
 
 
@@ -124,9 +124,7 @@ def create_input(override=None) -> Input:
     )
 
 
-def create_applicants_new(override=None) -> ApplicantsNew:
+def create_applicants(override=None) -> Applicants:
     if not override:
         override = {}
-    return ApplicantsNew(
-        **{"exhausted": [], "proposer": [], "admitted": {}, **override}
-    )
+    return Applicants(**{"exhausted": [], "proposer": [], "admitted": {}, **override})

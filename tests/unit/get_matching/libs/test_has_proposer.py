@@ -1,14 +1,14 @@
 from python.get_matching.libs.has_proposer import has_proposer
 from python.types import InitialApplicantStatus
 from tests.unit.helpers import (
-    create_applicants_new,
+    create_applicants,
     create_applicant,
     create_application,
 )
 
 
 def test__has_proposer__proposer_is_empty__returns_false() -> None:
-    applicants = create_applicants_new({"proposer": []})
+    applicants = create_applicants({"proposer": []})
 
     result = has_proposer(applicants=applicants)
 
@@ -16,7 +16,7 @@ def test__has_proposer__proposer_is_empty__returns_false() -> None:
 
 
 def test__has_proposer__proposer_is_not_empty__returns_true() -> None:
-    applicants = create_applicants_new(
+    applicants = create_applicants(
         {
             "proposer": [
                 create_applicant(

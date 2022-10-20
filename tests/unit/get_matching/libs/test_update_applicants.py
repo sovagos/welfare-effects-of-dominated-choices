@@ -1,6 +1,6 @@
 from python.get_matching.libs.update_applicants import update_applicants
 from tests.unit.helpers import (
-    create_applicants_new,
+    create_applicants,
     get_random_string,
     create_applicant,
     create_admitted_applicant_status,
@@ -11,7 +11,7 @@ from tests.unit.helpers import (
 
 def test__update_applicants__admitted_applicant_given__adds_to_admitted() -> None:
     applicant_id = get_random_string()
-    applicants = create_applicants_new({"admitted": {}})
+    applicants = create_applicants({"admitted": {}})
     applicant = create_applicant(
         {"id": applicant_id, "status": create_admitted_applicant_status()}
     )
@@ -23,7 +23,7 @@ def test__update_applicants__admitted_applicant_given__adds_to_admitted() -> Non
 
 def test__update_applicants__admitted_applicant_given__update_the_admitted_applicant() -> None:
     applicant_id = get_random_string()
-    applicants = create_applicants_new(
+    applicants = create_applicants(
         {"admitted": {applicant_id: create_applicant({"id": applicant_id})}}
     )
     applicant = create_applicant(
@@ -38,7 +38,7 @@ def test__update_applicants__admitted_applicant_given__update_the_admitted_appli
 def test__update_applicants__admitted_applicant_given__remove_from_proposer() -> None:
     applicant_id = get_random_string()
     proposer_applicant = create_applicant({"id": applicant_id})
-    applicants = create_applicants_new({"proposer": [proposer_applicant]})
+    applicants = create_applicants({"proposer": [proposer_applicant]})
     admitted_applicant = create_applicant(
         {"id": applicant_id, "status": create_admitted_applicant_status()}
     )
@@ -49,7 +49,7 @@ def test__update_applicants__admitted_applicant_given__remove_from_proposer() ->
 
 
 def test__update_applicants__exhausted_applicant_given__adds_to_exhausted() -> None:
-    applicants = create_applicants_new({"exhausted": []})
+    applicants = create_applicants({"exhausted": []})
     exhausted_applicant = create_applicant(
         {
             "ranked_applications": [create_application()],
@@ -65,7 +65,7 @@ def test__update_applicants__exhausted_applicant_given__adds_to_exhausted() -> N
 def test__update_applicants__exhausted_applicant_given__removes_from_proposer() -> None:
     applicant_id = get_random_string()
     proposer_applicant = create_applicant({"id": applicant_id})
-    applicants = create_applicants_new({"proposer": [proposer_applicant]})
+    applicants = create_applicants({"proposer": [proposer_applicant]})
     exhausted_applicant = create_applicant(
         {
             "id": applicant_id,
@@ -82,7 +82,7 @@ def test__update_applicants__exhausted_applicant_given__removes_from_proposer() 
 def test__update_applicants__exhausted_applicant_given__removes_from_admitted() -> None:
     applicant_id = get_random_string()
     admitted_applicant = create_applicant({"id": applicant_id})
-    applicants = create_applicants_new({"admitted": {applicant_id: admitted_applicant}})
+    applicants = create_applicants({"admitted": {applicant_id: admitted_applicant}})
     exhausted_applicant = create_applicant(
         {
             "id": applicant_id,
@@ -98,7 +98,7 @@ def test__update_applicants__exhausted_applicant_given__removes_from_admitted() 
 
 def test__update_applicants__proposer_applicant_given__adds_to_proposer_as_first_item() -> None:
     applicant_id = get_random_string()
-    applicants = create_applicants_new({"proposer": [create_applicant()]})
+    applicants = create_applicants({"proposer": [create_applicant()]})
     applicant = create_applicant(
         {
             "id": applicant_id,
@@ -114,7 +114,7 @@ def test__update_applicants__proposer_applicant_given__adds_to_proposer_as_first
 
 def test__update_applicants__proposer_applicant_given__removes_from_admitted() -> None:
     applicant_id = get_random_string()
-    applicants = create_applicants_new(
+    applicants = create_applicants(
         {
             "admitted": {applicant_id: create_applicant({"id": applicant_id})},
             "proposer": [],
@@ -135,7 +135,7 @@ def test__update_applicants__proposer_applicant_given__removes_from_admitted() -
 
 def test__update_applicants__proposer_applicant_given__updates_the_same_applicant_in_proposer() -> None:
     applicant_id = get_random_string()
-    applicants = create_applicants_new(
+    applicants = create_applicants(
         {"proposer": [create_applicant({"id": applicant_id}), create_applicant()]}
     )
     updated_applicant = create_applicant(

@@ -1,18 +1,18 @@
 from typing import Any
 
 from python.get_matching.libs.is_proposer import is_proposer
-from python.types import Applicant, ApplicantsNew, ApplicantStatusType
+from python.types import Applicant, Applicants, ApplicantStatusType
 
 
-def update_applicants(applicants: ApplicantsNew, applicant: Applicant) -> ApplicantsNew:
+def update_applicants(applicants: Applicants, applicant: Applicant) -> Applicants:
     if is_proposer(applicant=applicant):
         if is_in_proposer(applicants=applicants, applicant=applicant):
-            return ApplicantsNew(
+            return Applicants(
                 proposer=[applicant, *applicants.proposer[1:]],
                 admitted=applicants.admitted,
                 exhausted=applicants.exhausted,
             )
-        return ApplicantsNew(
+        return Applicants(
             proposer=[applicant, *applicants.proposer],
             admitted=get_admitted_without_applicant(
                 admitted=applicants.admitted, applicant=applicant
@@ -21,12 +21,12 @@ def update_applicants(applicants: ApplicantsNew, applicant: Applicant) -> Applic
         )
     if is_exhausted(applicant=applicant):
         if is_in_proposer(applicants=applicants, applicant=applicant):
-            return ApplicantsNew(
+            return Applicants(
                 proposer=applicants.proposer[1:],
                 admitted=applicants.admitted,
                 exhausted=[*applicants.exhausted, applicant],
             )
-        return ApplicantsNew(
+        return Applicants(
             proposer=applicants.proposer,
             admitted=get_admitted_without_applicant(
                 admitted=applicants.admitted, applicant=applicant
@@ -35,19 +35,19 @@ def update_applicants(applicants: ApplicantsNew, applicant: Applicant) -> Applic
         )
     applicants.admitted[applicant.id] = applicant
     if is_in_proposer(applicants=applicants, applicant=applicant):
-        return ApplicantsNew(
+        return Applicants(
             proposer=applicants.proposer[1:],
             admitted=applicants.admitted,
             exhausted=applicants.exhausted,
         )
-    return ApplicantsNew(
+    return Applicants(
         proposer=applicants.proposer,
         admitted=applicants.admitted,
         exhausted=applicants.exhausted,
     )
 
 
-def is_in_proposer(applicants: ApplicantsNew, applicant: Applicant) -> bool:
+def is_in_proposer(applicants: Applicants, applicant: Applicant) -> bool:
     return len(applicants.proposer) > 0 and applicants.proposer[0].id == applicant.id
 
 
