@@ -8,8 +8,8 @@ from python.get_matching.libs.get_marginal_admitted_applicant import (
 from python.get_matching.libs.get_next_application import (
     get_next_application,
 )
-from python.get_matching.libs.get_next_proposer import (
-    get_next_proposer,
+from python.get_matching.libs.get_next_proposer_old import (
+    get_next_proposer_old,
 )
 from python.get_matching.libs.has_marginal_applicant import (
     is_contract_full,
@@ -34,7 +34,7 @@ def run_deferred_acceptance_rec(
     if not has_proposer_old(applicants=applicants):
         return applicants
 
-    proposer = get_next_proposer(applicants=applicants)
+    proposer = get_next_proposer_old(applicants=applicants)
     application = get_next_application(applicant=proposer)
     proposed_contract = contracts[application.contract]
     if proposed_contract.capacity == 0:

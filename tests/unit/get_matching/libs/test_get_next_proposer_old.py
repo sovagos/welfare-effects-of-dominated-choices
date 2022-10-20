@@ -1,6 +1,6 @@
 from python.types import InitialApplicantStatus
-from python.get_matching.libs.get_next_proposer import (
-    get_next_proposer,
+from python.get_matching.libs.get_next_proposer_old import (
+    get_next_proposer_old,
 )
 from tests.unit.helpers import (
     create_applicant,
@@ -26,6 +26,6 @@ def test__get_next_proposer__returns_next_proposer():
         [exhausted_applicant, admitted_applicant, initial_applicant]
     )
 
-    result = get_next_proposer(applicants=applicants)
+    result = get_next_proposer_old(applicants=applicants)
 
     assert result == initial_applicant
