@@ -2,6 +2,7 @@ from tco import with_continuations
 from python.get_matching.libs.admint_next_application import (
     admit_next_application,
 )
+from python.get_matching.libs.get_admitted_applicant import get_admitted_applicant
 from python.get_matching.libs.get_marginal_admitted_applicant import (
     get_marginal_admitted_applicant,
 )
@@ -73,7 +74,9 @@ def run_deferred_acceptance_rec(
             )
         else:
             rejected_applicant = reject_next_application(
-                applicant=applicants.admitted[marginal_applicant.applicant_id]
+                applicant=get_admitted_applicant(
+                    applicants=applicants, applicant_id=marginal_applicant.applicant_id
+                )
             )
             contract_with_new_applicant = add_admitted_applicant_to_contract(
                 applicant=AdmittedApplicant(
