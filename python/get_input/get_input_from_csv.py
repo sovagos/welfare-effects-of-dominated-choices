@@ -30,7 +30,7 @@ class RawApplicant:
 
 
 def get_input_from_csv(csv: list[dict]) -> Input:
-    result: dict = _reduce(_accumulator, csv, {"raw_applicants": {}, "contracts": {}})
+    result: dict = _reduce(csv)
     return Input(
         applicants=_convert_raw_applicants_to_applicants(
             raw_applicants=[*result["raw_applicants"].values()]
@@ -39,10 +39,10 @@ def get_input_from_csv(csv: list[dict]) -> Input:
     )
 
 
-def _reduce(fn: Callable[[T, K], T], items: list[K], init: T) -> T:
-    result = init
+def _reduce(items: list[dict]) -> dict:
+    result: dict = {"raw_applicants": {}, "contracts": {}}
     for item in items:
-        result = fn(result, item)
+        result = _accumulator(result, item)
     return result
 
 
@@ -96,13 +96,11 @@ def _get_applicants(
         else accumulated_applicants[parsed_row.applicant_id].ranked_applications,
         parsed_row=parsed_row,
     )
-    return {
-        **accumulated_applicants,
-        parsed_row.applicant_id: RawApplicant(
-            id=parsed_row.applicant_id,
-            ranked_applications=ranked_applications,
-        ),
-    }
+    accumulated_applicants[parsed_row.applicant_id] = RawApplicant(
+        id=parsed_row.applicant_id,
+        ranked_applications=ranked_applications,
+    )
+    return accumulated_applicants
 
 
 def _get_ranked_applications_with_new_application(
