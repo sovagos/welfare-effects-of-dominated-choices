@@ -33,15 +33,16 @@ def update_applicants(applicants: ApplicantsNew, applicant: Applicant) -> Applic
             ),
             exhausted=[*applicants.exhausted, applicant],
         )
+    applicants.admitted[applicant.id] = applicant
     if is_in_proposer(applicants=applicants, applicant=applicant):
         return ApplicantsNew(
             proposer=applicants.proposer[1:],
-            admitted={**applicants.admitted, applicant.id: applicant},
+            admitted=applicants.admitted,
             exhausted=applicants.exhausted,
         )
     return ApplicantsNew(
         proposer=applicants.proposer,
-        admitted={**applicants.admitted, applicant.id: applicant},
+        admitted=applicants.admitted,
         exhausted=applicants.exhausted,
     )
 
@@ -60,11 +61,5 @@ def is_exhausted(applicant: Any) -> bool:
 def get_admitted_without_applicant(
     admitted: dict[str, Applicant], applicant: Applicant
 ) -> dict[str, Applicant]:
-    return {
-        admitted_applicant_id: admitted_applicant
-        for (
-            admitted_applicant_id,
-            admitted_applicant,
-        ) in admitted.items()
-        if admitted_applicant_id != applicant.id
-    }
+    admitted.pop(applicant.id, None)
+    return admitted
