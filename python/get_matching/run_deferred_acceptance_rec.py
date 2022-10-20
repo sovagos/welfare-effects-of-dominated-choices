@@ -14,7 +14,7 @@ from python.get_matching.libs.get_next_proposer import (
 from python.get_matching.libs.has_marginal_applicant import (
     is_contract_full,
 )
-from python.get_matching.libs.has_proposer import has_proposer
+from python.get_matching.libs.has_proposer_old import has_proposer_old
 from python.get_matching.libs.add_admitted_applicant_to_contract import (
     add_admitted_applicant_to_contract,
 )
@@ -31,7 +31,7 @@ from python.types import Applicants, Contracts, AdmittedApplicant
 def run_deferred_acceptance_rec(
     applicants: Applicants, contracts: Contracts, self=None
 ) -> Applicants:
-    if not has_proposer(applicants=applicants):
+    if not has_proposer_old(applicants=applicants):
         return applicants
 
     proposer = get_next_proposer(applicants=applicants)
