@@ -8,13 +8,14 @@ from python.get_matching.libs.get_marginal_admitted_applicant import (
 from python.get_matching.libs.get_next_application import (
     get_next_application,
 )
+from python.get_matching.libs.get_next_proposer import get_next_proposer
 from python.get_matching.libs.get_next_proposer_old import (
     get_next_proposer_old,
 )
 from python.get_matching.libs.has_marginal_applicant import (
     is_contract_full,
 )
-from python.get_matching.libs.has_proposer_old import has_proposer_old
+from python.get_matching.libs.has_proposer import has_proposer
 from python.get_matching.libs.add_admitted_applicant_to_contract import (
     add_admitted_applicant_to_contract,
 )
@@ -24,27 +25,29 @@ from python.get_matching.libs.reject_next_application import (
 from python.get_matching.libs.remove_admitted_applicant_from_contract import (
     remove_admitted_applicant_from_contract,
 )
-from python.types import Applicants, Contracts, AdmittedApplicant
+from python.get_matching.libs.update_applicants import update_applicants
+from python.types import ApplicantsNew, Contracts, AdmittedApplicant
 
 
 @with_continuations()
 def run_deferred_acceptance_rec(
-    applicants: Applicants, contracts: Contracts, self=None
-) -> Applicants:
-    if not has_proposer_old(applicants=applicants):
+    applicants: ApplicantsNew, contracts: Contracts, self=None
+) -> ApplicantsNew:
+    if not has_proposer(applicants=applicants):
         return applicants
 
-    proposer = get_next_proposer_old(applicants=applicants)
+    proposer = get_next_proposer(applicants=applicants)
     application = get_next_application(applicant=proposer)
     proposed_contract = contracts[application.contract]
     if proposed_contract.capacity == 0:
-        rejected_applicant = reject_next_application(applicant=proposer)
         return self(
-            {**applicants, rejected_applicant.id: rejected_applicant},
+            update_applicants(
+                applicants=applicants,
+                applicant=reject_next_application(applicant=proposer),
+            ),
             contracts,
         )
     if not is_contract_full(contract=proposed_contract):
-        admitted_applicant = admit_next_application(applicant=proposer)
         contract_with_new_applicant = add_admitted_applicant_to_contract(
             applicant=AdmittedApplicant(
                 applicant_id=proposer.id, priority_score=application.priority_score
@@ -52,7 +55,10 @@ def run_deferred_acceptance_rec(
             contract=proposed_contract,
         )
         return self(
-            {**applicants, admitted_applicant.id: admitted_applicant},
+            update_applicants(
+                applicants=applicants,
+                applicant=admit_next_application(applicant=proposer),
+            ),
             {
                 **contracts,
                 contract_with_new_applicant.id: contract_with_new_applicant,
@@ -61,16 +67,17 @@ def run_deferred_acceptance_rec(
     else:
         marginal_applicant = get_marginal_admitted_applicant(contract=proposed_contract)
         if marginal_applicant.priority_score > application.priority_score:
-            rejected_applicant = reject_next_application(applicant=proposer)
             return self(
-                {**applicants, rejected_applicant.id: rejected_applicant},
+                update_applicants(
+                    applicants=applicants,
+                    applicant=reject_next_application(applicant=proposer),
+                ),
                 contracts,
             )
         else:
             rejected_applicant = reject_next_application(
-                applicant=applicants[marginal_applicant.applicant_id]
+                applicant=applicants.admitted[marginal_applicant.applicant_id]
             )
-            admitted_applicant = admit_next_application(applicant=proposer)
             contract_with_new_applicant = add_admitted_applicant_to_contract(
                 applicant=AdmittedApplicant(
                     applicant_id=proposer.id, priority_score=application.priority_score
@@ -80,11 +87,12 @@ def run_deferred_acceptance_rec(
                 ),
             )
             return self(
-                {
-                    **applicants,
-                    rejected_applicant.id: rejected_applicant,
-                    admitted_applicant.id: admitted_applicant,
-                },
+                update_applicants(
+                    applicants=update_applicants(
+                        applicants=applicants, applicant=rejected_applicant
+                    ),
+                    applicant=admit_next_application(applicant=proposer),
+                ),
                 {
                     **contracts,
                     contract_with_new_applicant.id: contract_with_new_applicant,
