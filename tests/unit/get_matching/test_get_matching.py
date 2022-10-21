@@ -101,8 +101,8 @@ use_cases = [
         ],
         "expected": [
             create_matching({"applicant_id": "A2", "contract_id": "C1", "rank": 1}),
-            create_matching({"applicant_id": "A1", "contract_id": "C3", "rank": 3}),
             create_matching({"applicant_id": "A3", "contract_id": "C2", "rank": 1}),
+            create_matching({"applicant_id": "A1", "contract_id": "C3", "rank": 3}),
         ],
     },
     {
@@ -174,11 +174,11 @@ use_cases = [
             ),
         ],
         "expected": [
+            create_matching({"applicant_id": "A2", "contract_id": "C1", "rank": 1}),
+            create_matching({"applicant_id": "A3", "contract_id": "C1", "rank": 1}),
             create_matching(
                 {"applicant_id": "A1", "contract_id": "Unassigned", "rank": 0}
             ),
-            create_matching({"applicant_id": "A2", "contract_id": "C1", "rank": 1}),
-            create_matching({"applicant_id": "A3", "contract_id": "C1", "rank": 1}),
         ],
     },
 ]

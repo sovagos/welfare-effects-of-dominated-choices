@@ -13,7 +13,7 @@ def update_applicants(applicants: Applicants, applicant: Applicant) -> Applicant
                 exhausted=applicants.exhausted,
             )
         return Applicants(
-            proposer=[applicant, *applicants.proposer],
+            proposer=[*applicants.proposer, applicant],
             admitted=get_admitted_without_applicant(
                 admitted=applicants.admitted, applicant=applicant
             ),

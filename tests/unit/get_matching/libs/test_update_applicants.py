@@ -96,7 +96,7 @@ def test__update_applicants__exhausted_applicant_given__removes_from_admitted() 
     assert applicant_id not in result.admitted.keys()
 
 
-def test__update_applicants__proposer_applicant_given__adds_to_proposer_as_first_item() -> None:
+def test__update_applicants__proposer_applicant_given__adds_to_proposer_as_last_item() -> None:
     applicant_id = get_random_string()
     applicants = create_applicants({"proposer": [create_applicant()]})
     applicant = create_applicant(
@@ -109,7 +109,7 @@ def test__update_applicants__proposer_applicant_given__adds_to_proposer_as_first
 
     result = update_applicants(applicants=applicants, applicant=applicant)
 
-    assert result.proposer[0] == applicant
+    assert result.proposer[1] == applicant
 
 
 def test__update_applicants__proposer_applicant_given__removes_from_admitted() -> None:

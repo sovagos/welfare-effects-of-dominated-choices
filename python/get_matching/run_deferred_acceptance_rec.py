@@ -17,6 +17,9 @@ from python.get_matching.libs.has_proposer import has_proposer
 from python.get_matching.libs.add_admitted_applicant_to_contract import (
     add_admitted_applicant_to_contract,
 )
+from python.get_matching.libs.reject_current_application import (
+    reject_current_application,
+)
 from python.get_matching.libs.reject_next_application import (
     reject_next_application,
 )
@@ -73,7 +76,7 @@ def run_deferred_acceptance_rec(
                 contracts,
             )
         else:
-            rejected_applicant = reject_next_application(
+            rejected_applicant = reject_current_application(
                 applicant=get_admitted_applicant(
                     applicants=applicants, applicant_id=marginal_applicant.applicant_id
                 )
