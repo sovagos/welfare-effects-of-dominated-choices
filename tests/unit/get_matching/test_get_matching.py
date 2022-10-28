@@ -189,6 +189,5 @@ def test__get_matching(use_case) -> None:
     result = get_matching(
         contracts=use_case["contracts"], applicants=use_case["applicants"]
     )
-    print(result)
 
     assert result == use_case["expected"]
