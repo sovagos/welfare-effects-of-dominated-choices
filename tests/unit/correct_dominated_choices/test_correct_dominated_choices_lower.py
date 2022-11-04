@@ -1,10 +1,3 @@
-# No dropping or flipping
-# Dropping and the program has state-funded version
-# Dropping, but the program has no state-funded version
-# 2 Droppings and their programs have state-funded versions -> right order
-
-# Flipping _. put state-funded just above not-state-funded
-# 2 Flippings - put state-funded just above not-state-funded -- right order
 import pytest
 
 from python.correct_dominated_choices.correct_dominated_choices_lower import (
@@ -79,176 +72,127 @@ use_cases = [
     },
     {
         "description": "Dominated dropping and the program has a state-funded version",
-        "applicant": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                ]
-            }
+        "applicant": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_self_funded_with_pair_1",
+            ]
         ),
-        "expected": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                ]
-            }
+        "expected": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_state_funded_with_pair_1",
+                "Contract_self_funded_with_pair_1",
+            ]
         ),
     },
     {
         "description": "Dominated dropping and the program has no state-funded version",
-        "applicant": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_self_funded_with_no_pair"}
-                    ),
-                ]
-            }
+        "applicant": create_applicant_with_ranked_applications(
+            contract_ids=["Contract_self_funded_with_no_pair"]
         ),
-        "expected": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_self_funded_with_no_pair"}
-                    ),
-                ]
-            }
+        "expected": create_applicant_with_ranked_applications(
+            contract_ids=["Contract_self_funded_with_no_pair"]
         ),
     },
     {
         "description": "Dominated droppings and correct in right order",
-        "applicant": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_2"}
-                    ),
-                ]
-            }
+        "applicant": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_self_funded_with_pair_1",
+                "Contract_self_funded_with_pair_2",
+            ]
         ),
-        "expected": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_2"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_2"}
-                    ),
-                ]
-            }
+        "expected": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_state_funded_with_pair_1",
+                "Contract_self_funded_with_pair_1",
+                "Contract_state_funded_with_pair_2",
+                "Contract_self_funded_with_pair_2",
+            ]
         ),
     },
     {
         "description": "Dominated flipping",
+        "applicant": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_self_funded_with_pair_1",
+                "Contract_state_funded_with_pair_2",
+                "Contract_state_funded_with_pair_1",
+            ]
+        ),
+        "expected": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_state_funded_with_pair_1",
+                "Contract_self_funded_with_pair_1",
+                "Contract_state_funded_with_pair_2",
+            ]
+        ),
+    },
+    {
+        "description": "Dominated flipping (keep the priority score of the state funded)",
         "applicant": create_applicant(
             {
+                "id": "x",
                 "ranked_applications": [
                     create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
+                        {
+                            "contract": "Contract_self_funded_with_pair_1",
+                            "priority_score": 0,
+                        }
                     ),
                     create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
+                        {
+                            "contract": "Contract_state_funded_with_pair_1",
+                            "priority_score": 1,
+                        }
                     ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_2"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_1"}
-                    ),
-                ]
+                ],
             }
         ),
         "expected": create_applicant(
             {
+                "id": "x",
                 "ranked_applications": [
                     create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
+                        {
+                            "contract": "Contract_state_funded_with_pair_1",
+                            "priority_score": 1,
+                        }
                     ),
                     create_application(
-                        {"contract": "Contract_state_funded_with_pair_1"}
+                        {
+                            "contract": "Contract_self_funded_with_pair_1",
+                            "priority_score": 0,
+                        }
                     ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_2"}
-                    ),
-                ]
+                ],
             }
         ),
     },
     {
         "description": "Dominated flippings and correct in right order",
-        "applicant": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_2"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_2"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_1"}
-                    ),
-                ]
-            }
+        "applicant": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_self_funded_with_pair_1",
+                "Contract_self_funded_with_pair_2",
+                "Contract_state_funded_with_pair_2",
+                "Contract_state_funded_with_pair_1",
+            ]
         ),
-        "expected": create_applicant(
-            {
-                "ranked_applications": [
-                    create_application(
-                        {"contract": "Contract_state_funded_with_no_pair"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_1"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_state_funded_with_pair_2"}
-                    ),
-                    create_application(
-                        {"contract": "Contract_self_funded_with_pair_2"}
-                    ),
-                ]
-            }
+        "expected": create_applicant_with_ranked_applications(
+            contract_ids=[
+                "Contract_state_funded_with_no_pair",
+                "Contract_state_funded_with_pair_1",
+                "Contract_self_funded_with_pair_1",
+                "Contract_state_funded_with_pair_2",
+                "Contract_self_funded_with_pair_2",
+            ]
         ),
     },
 ]
