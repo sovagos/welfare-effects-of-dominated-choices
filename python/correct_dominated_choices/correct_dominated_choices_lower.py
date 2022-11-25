@@ -34,11 +34,13 @@ def _get_programs(contracts: list[Contract]) -> dict:
 def _get_corrected_applicant(
     programs: dict, contracts: dict[str, Contract], applicant: Applicant
 ) -> Applicant:
-    ranked_applications: list[Application] = []
+    fixed_ranked_applications: list[Application] = []
     for application in applicant.ranked_applications:
-        if _has_ranked(
-            contract_id=application.contract, ranked_applications=ranked_applications
-        ):
+        is_already_ranked = _has_ranked(
+            contract_id=application.contract,
+            ranked_applications=fixed_ranked_applications,
+        )
+        if is_already_ranked:
             break
         contract = contracts[application.contract]
         if not contract.state_funded and _has_state_funded_pair(
@@ -47,32 +49,23 @@ def _get_corrected_applicant(
             state_funded_pair_contract_id = _get_state_funded_pair_contract_id(
                 programs=programs, contract=contract
             )
-            if not _has_ranked(
+            is_state_funded_pair_in_fixed_ranked_applications = _has_ranked(
                 contract_id=state_funded_pair_contract_id,
-                ranked_applications=ranked_applications,
-            ):
-                if not _has_ranked(
-                    contract_id=state_funded_pair_contract_id,
-                    ranked_applications=applicant.ranked_applications,
-                ):
-                    ranked_applications.append(
-                        Application(
-                            contract=state_funded_pair_contract_id,
-                            priority_score=application.priority_score,
-                        )
+                ranked_applications=fixed_ranked_applications,
+            )
+            if not is_state_funded_pair_in_fixed_ranked_applications:
+                fixed_ranked_applications.append(
+                    _get_state_funded_application_pair(
+                        state_funded_contract_id=state_funded_pair_contract_id,
+                        applicant=applicant,
+                        application=application,
                     )
-                else:
-                    ranked_applications.append(
-                        _get_application_by_contract_id(
-                            ranked_applications=applicant.ranked_applications,
-                            contract_id=state_funded_pair_contract_id,
-                        )
-                    )
-        ranked_applications.append(application)
+                )
+        fixed_ranked_applications.append(application)
     return Applicant(
         id=applicant.id,
         status=applicant.status,
-        ranked_applications=ranked_applications,
+        ranked_applications=fixed_ranked_applications,
     )
 
 
@@ -104,3 +97,21 @@ def _get_application_by_contract_id(
 
 def _to_map_by_id(elements: list[Contract]) -> dict[str, Contract]:
     return {element.id: element for element in elements}
+
+
+def _get_state_funded_application_pair(
+    state_funded_contract_id: str, applicant: Applicant, application: Application
+) -> Application:
+    is_flipping = _has_ranked(
+        contract_id=state_funded_contract_id,
+        ranked_applications=applicant.ranked_applications,
+    )
+    if is_flipping:
+        return _get_application_by_contract_id(
+            ranked_applications=applicant.ranked_applications,
+            contract_id=state_funded_contract_id,
+        )
+    return Application(
+        contract=state_funded_contract_id,
+        priority_score=application.priority_score,
+    )
