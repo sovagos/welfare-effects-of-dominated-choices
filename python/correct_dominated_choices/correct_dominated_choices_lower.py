@@ -41,7 +41,7 @@ def _get_corrected_applicant(
             ranked_applications=fixed_ranked_applications,
         )
         if is_already_ranked:
-            break
+            continue
         contract = contracts[application.contract]
         if not contract.state_funded and _has_state_funded_pair(
             contract=contract, programs=programs

@@ -178,20 +178,20 @@ use_cases = [
         "description": "Dominated flippings and correct in right order",
         "applicant": create_applicant_with_ranked_applications(
             contract_ids=[
-                "Contract_state_funded_with_no_pair",
                 "Contract_self_funded_with_pair_1",
                 "Contract_self_funded_with_pair_2",
                 "Contract_state_funded_with_pair_2",
                 "Contract_state_funded_with_pair_1",
+                "Contract_state_funded_with_no_pair",
             ]
         ),
         "expected": create_applicant_with_ranked_applications(
             contract_ids=[
-                "Contract_state_funded_with_no_pair",
                 "Contract_state_funded_with_pair_1",
                 "Contract_self_funded_with_pair_1",
                 "Contract_state_funded_with_pair_2",
                 "Contract_self_funded_with_pair_2",
+                "Contract_state_funded_with_no_pair",
             ]
         ),
     },
