@@ -21,5 +21,11 @@ test:
 run:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.main"
 
+run-correct-upper:
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.upper"
+
+run-correct-lower:
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.lower"
+
 run-memory-profile:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m memory_profiler python.application.main"
