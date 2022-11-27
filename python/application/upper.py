@@ -1,7 +1,9 @@
 from os import environ, path
 from pathlib import Path
 
-from python.correct_dominated_choices.correct_dominated_choices_upper import correct_dominated_choices_upper
+from python.correct_dominated_choices.correct_dominated_choices_upper import (
+    correct_dominated_choices_upper,
+)
 from python.get_matching.get_matching import get_matching
 from python.get_input.get_input import get_input
 from python.write_output.write_output import write_output
