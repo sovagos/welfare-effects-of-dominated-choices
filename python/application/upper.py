@@ -1,26 +1,18 @@
 from os import environ, path
-from pathlib import Path
 
+from python.application.libs.run_application import run_application
+from python.config import INPUT_FOLDER, OUTPUT_FOLDER
 from python.correct_dominated_choices.correct_dominated_choices_upper import (
     correct_dominated_choices_upper,
 )
-from python.get_matching.get_matching import get_matching
-from python.get_input.get_input import get_input
-from python.write_output.write_output import write_output
-
-BASE_PATH = path.join(
-    Path(__file__).parent.resolve(),
-    "..",
-    "..",
-)
-INPUT_FOLDER = path.join(BASE_PATH, "input")
-OUTPUT_FOLDER = path.join(BASE_PATH, "output")
 
 
 def main(input_file: str, output_file: str) -> None:
-    input = correct_dominated_choices_upper(input=get_input(file=input_file))
-    matchings = get_matching(applicants=input.applicants, contracts=input.contracts)
-    write_output(file=output_file, data=matchings)
+    run_application(
+        input_file=input_file,
+        output_file=output_file,
+        correct_dominated_choices=correct_dominated_choices_upper,
+    )
 
 
 if __name__ == "__main__":
