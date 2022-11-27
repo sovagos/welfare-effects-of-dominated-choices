@@ -13,10 +13,10 @@ check-types:
 	@$(DOCKER_RUN_BASH) "mypy ./python"
 
 all-in:
-	$(DOCKER_RUN_BASH) "mypy ./python && black . && PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/unit tests/e2e tests/integration"
+	$(DOCKER_RUN_BASH) "mypy ./python && black . && PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests"
 
 test:
-	$(DOCKER_RUN_BASH) "black . && PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests/unit"
+	$(DOCKER_RUN_BASH) "black . && PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests"
 
 run:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.main"

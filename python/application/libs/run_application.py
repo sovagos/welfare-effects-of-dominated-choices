@@ -11,6 +11,6 @@ def run_application(
     output_file: str,
     correct_dominated_choices: Callable[[Input], Input],
 ) -> None:
-    input = correct_dominated_choices(input=get_input(file=input_file))
+    input = correct_dominated_choices(get_input(file=input_file))
     matchings = get_matching(applicants=input.applicants, contracts=input.contracts)
     write_output(file=output_file, data=matchings)

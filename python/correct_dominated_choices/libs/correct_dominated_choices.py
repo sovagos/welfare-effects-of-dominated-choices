@@ -13,9 +13,9 @@ def correct_dominated_choices(
         contracts=input.contracts,
         applicants=[
             get_corrected_applicant(
-                programs=programs,
-                contracts=_to_map_by_id(elements=input.contracts),
-                applicant=applicant,
+                programs,
+                _to_map_by_id(elements=input.contracts),
+                applicant,
             )
             for applicant in input.applicants
         ],

@@ -25,7 +25,7 @@ correct_dominated_choices_upper: Callable[
 def _get_corrected_applicant(
     programs: dict, contracts: dict[str, Contract], applicant: Applicant
 ) -> Applicant:
-    moved_up_applications = []
+    moved_up_applications: list[Application] = []
     in_place_applications: list[Application] = []
     for application in applicant.ranked_applications:
         contract = contracts[application.contract]
