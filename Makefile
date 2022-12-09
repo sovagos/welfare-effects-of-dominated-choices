@@ -18,8 +18,8 @@ all-in:
 test:
 	$(DOCKER_RUN_BASH) "black . && PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -p no:cacheprovider tests"
 
-run:
-	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.main"
+run-baseline:
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.baseline"
 
 run-correct-upper:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.upper"
