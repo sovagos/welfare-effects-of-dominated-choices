@@ -2,7 +2,9 @@ from itertools import chain
 from os import environ, path
 
 from python.config import INPUT_FOLDER, OUTPUT_FOLDER
-from python.correct_dominated_choices.correct_dominated_choices_lower import correct_dominated_choices_lower
+from python.correct_dominated_choices.correct_dominated_choices_lower import (
+    correct_dominated_choices_lower,
+)
 from python.get_input.get_input import get_input
 from python.types import Input, Contracts, Applicant
 from python.write_output.write_data_to_file import write_data_to_file
@@ -47,12 +49,16 @@ def _get_applications(applicant: Applicant, contracts: Contracts) -> list[list[s
             str(ranked_application.priority_score),
             ranked_application.contract,
             str(contracts[ranked_application.contract].capacity),
-            str(contracts[ranked_application.contract].state_funded),
+            _convert_boolean(value=contracts[ranked_application.contract].state_funded),
             contracts[ranked_application.contract].program_id,
-            str(ranked_application.admitted),
+            _convert_boolean(value=ranked_application.admitted),
         ]
         for rank, ranked_application in enumerate(applicant.ranked_applications)
     ]
+
+
+def _convert_boolean(value: bool) -> str:
+    return "1" if value else "0"
 
 
 if __name__ == "__main__":
