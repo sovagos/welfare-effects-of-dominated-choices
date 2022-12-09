@@ -27,5 +27,8 @@ run-correct-upper:
 run-correct-lower:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.lower"
 
-run-memory-profile:
-	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m memory_profiler python.application.main"
+run-correct-upper-input:
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.correct-upper-input"
+
+run-correct-lower-input:
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.correct-lower-input"

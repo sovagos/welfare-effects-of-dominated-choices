@@ -19,6 +19,7 @@ def get_state_funded_application_pair(
     return Application(
         contract=state_funded_contract_id,
         priority_score=application.priority_score,
+        admitted=application.admitted,
     )
 
 

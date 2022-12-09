@@ -15,6 +15,7 @@ class ParsedRow:
     capacity: int
     state_funded: bool
     program_id: str
+    admitted: bool
 
 
 @dataclass
@@ -67,6 +68,7 @@ def _get_parsed_row(row: dict) -> ParsedRow:
         capacity=int(row["capacity"]),
         state_funded=row["state_funded"] == "1",
         program_id=row["program_id"],
+        admitted=row["admitted"] == "1",
     )
 
 
@@ -113,6 +115,7 @@ def _get_ranked_applications_with_new_application(
             application=Application(
                 contract=parsed_row.contract_id,
                 priority_score=parsed_row.priority_score,
+                admitted=parsed_row.admitted,
             ),
         ),
     ]

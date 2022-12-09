@@ -29,6 +29,7 @@ class RejectedApplicantStatus:
 class Application:
     contract: str
     priority_score: float
+    admitted: bool
 
 
 @dataclass

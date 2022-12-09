@@ -75,7 +75,7 @@ def get_absolut_path_of_output_file(input_filename: str) -> str:
 
 def run(input_filename: str) -> None:
     Popen(
-        ["python3", "-m", "python.application.main"],
+        ["python3", "-m", "python.application.baseline"],
         env={**os.environ.copy(), "INPUT": input_filename},
     ).wait()
 

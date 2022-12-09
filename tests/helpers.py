@@ -48,6 +48,7 @@ def create_application(override=None) -> Application:
         **{
             "contract": get_random_string(),
             "priority_score": get_random_float(),
+            "admitted": True,
             **override,
         }
     )
