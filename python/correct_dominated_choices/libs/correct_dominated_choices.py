@@ -31,7 +31,3 @@ def _get_programs(contracts: Contracts) -> dict:
         ] = contract.id
         programs[contract.program_id] = program
     return programs
-
-
-def _to_map_by_id(elements: list[Contract]) -> dict[str, Contract]:
-    return {element.id: element for element in elements}
