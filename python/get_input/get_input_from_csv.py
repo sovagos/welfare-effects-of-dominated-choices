@@ -49,11 +49,11 @@ def _reduce(items: list[dict]) -> dict:
 def _accumulator(accumulated: dict, row: dict) -> dict:
     parsed_row = _get_parsed_row(row=row)
     return {
-        "contracts": _get_contracts(
-            accumulated_contracts=accumulated["contracts"], parsed_row=parsed_row
-        ),
         "raw_applicants": _get_applicants(
             accumulated_applicants=accumulated["raw_applicants"], parsed_row=parsed_row
+        ),
+        "contracts": _get_contracts(
+            accumulated_contracts=accumulated["contracts"], parsed_row=parsed_row
         ),
     }
 
