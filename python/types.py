@@ -58,7 +58,7 @@ Contracts = dict[str, Contract]
 
 @dataclass
 class Input:
-    contracts: list[Contract]
+    contracts: Contracts
     applicants: list[Applicant]
 
 

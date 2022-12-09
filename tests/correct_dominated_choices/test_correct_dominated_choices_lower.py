@@ -9,50 +9,50 @@ from tests.correct_dominated_choices.helper import (
 )
 from tests.helpers import create_contract, create_applicant, create_application
 
-contracts = [
-    create_contract(
+contracts = {
+    "Contract_state_funded_with_pair_1": create_contract(
         {
             "id": "Contract_state_funded_with_pair_1",
             "program_id": "Program_with_pair_1",
             "state_funded": True,
         }
     ),
-    create_contract(
+    "Contract_self_funded_with_pair_1": create_contract(
         {
             "id": "Contract_self_funded_with_pair_1",
             "program_id": "Program_with_pair_1",
             "state_funded": False,
         }
     ),
-    create_contract(
+    "Contract_state_funded_with_pair_2": create_contract(
         {
             "id": "Contract_state_funded_with_pair_2",
             "program_id": "Program_with_pair_2",
             "state_funded": True,
         }
     ),
-    create_contract(
+    "Contract_self_funded_with_pair_2": create_contract(
         {
             "id": "Contract_self_funded_with_pair_2",
             "program_id": "Program_with_pair_2",
             "state_funded": False,
         }
     ),
-    create_contract(
+    "Contract_state_funded_with_no_pair": create_contract(
         {
             "id": "Contract_state_funded_with_no_pair",
             "program_id": "Program_state_funded_no_pair",
             "state_funded": True,
         }
     ),
-    create_contract(
+    "Contract_self_funded_with_no_pair": create_contract(
         {
             "id": "Contract_self_funded_with_no_pair",
             "program_id": "Program_self_funded_no_pair",
             "state_funded": False,
         }
     ),
-]
+}
 
 use_cases = [
     {

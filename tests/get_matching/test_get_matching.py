@@ -13,11 +13,11 @@ from tests.helpers import (
 
 use_cases = [
     {
-        "contracts": [
-            create_contract({"id": "C1", "capacity": 1}),
-            create_contract({"id": "C2", "capacity": 1}),
-            create_contract({"id": "C3", "capacity": 1}),
-        ],
+        "contracts": {
+            "C1": create_contract({"id": "C1", "capacity": 1}),
+            "C2": create_contract({"id": "C2", "capacity": 1}),
+            "C3": create_contract({"id": "C3", "capacity": 1}),
+        },
         "applicants": [
             create_applicant(
                 {
@@ -35,10 +35,10 @@ use_cases = [
         ],
     },
     {
-        "contracts": [
-            create_contract({"id": "C1", "capacity": 1}),
-            create_contract({"id": "C2", "capacity": 1}),
-        ],
+        "contracts": {
+            "C1": create_contract({"id": "C1", "capacity": 1}),
+            "C2": create_contract({"id": "C2", "capacity": 1}),
+        },
         "applicants": [
             create_applicant(
                 {
@@ -66,11 +66,11 @@ use_cases = [
         ],
     },
     {
-        "contracts": [
-            create_contract({"id": "C1", "capacity": 1}),
-            create_contract({"id": "C2", "capacity": 1}),
-            create_contract({"id": "C3", "capacity": 1}),
-        ],
+        "contracts": {
+            "C1": create_contract({"id": "C1", "capacity": 1}),
+            "C2": create_contract({"id": "C2", "capacity": 1}),
+            "C3": create_contract({"id": "C3", "capacity": 1}),
+        },
         "applicants": [
             create_applicant(
                 {
@@ -106,11 +106,11 @@ use_cases = [
         ],
     },
     {
-        "contracts": [
-            create_contract({"id": "C1", "capacity": 1}),
-            create_contract({"id": "C2", "capacity": 1}),
-            create_contract({"id": "C3", "capacity": 1}),
-        ],
+        "contracts": {
+            "C1": create_contract({"id": "C1", "capacity": 1}),
+            "C2": create_contract({"id": "C2", "capacity": 1}),
+            "C3": create_contract({"id": "C3", "capacity": 1}),
+        },
         "applicants": [
             create_applicant(
                 {
@@ -144,9 +144,9 @@ use_cases = [
         ],
     },
     {
-        "contracts": [
-            create_contract({"id": "C1", "capacity": 2}),
-        ],
+        "contracts": {
+            "C1": create_contract({"id": "C1", "capacity": 2}),
+        },
         "applicants": [
             create_applicant(
                 {

@@ -35,7 +35,7 @@ def get_input_from_csv(csv: list[dict]) -> Input:
         applicants=_convert_raw_applicants_to_applicants(
             raw_applicants=[*result["raw_applicants"].values()]
         ),
-        contracts=[*result["contracts"].values()],
+        contracts=result["contracts"],
     )
 
 

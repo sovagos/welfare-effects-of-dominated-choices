@@ -117,7 +117,7 @@ def create_input(override=None) -> Input:
         override = {}
     return Input(
         **{
-            "contracts": [],
+            "contracts": {},
             "applicants": [],
             **override,
         }

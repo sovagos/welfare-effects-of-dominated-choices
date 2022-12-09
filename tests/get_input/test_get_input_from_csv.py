@@ -10,7 +10,7 @@ from tests.helpers import (
 )
 
 use_cases = [
-    {"csv": [], "expected": create_input({"contracts": [], "applicants": []})},
+    {"csv": [], "expected": create_input({"contracts": {}, "applicants": []})},
     {
         "csv": [
             {
@@ -26,8 +26,8 @@ use_cases = [
         ],
         "expected": create_input(
             {
-                "contracts": [
-                    create_contract(
+                "contracts": {
+                    "C1": create_contract(
                         {
                             "id": "C1",
                             "capacity": 1,
@@ -36,7 +36,7 @@ use_cases = [
                             "admitted_applicants": [],
                         }
                     )
-                ],
+                },
                 "applicants": [
                     create_applicant(
                         {
@@ -78,8 +78,8 @@ use_cases = [
         ],
         "expected": create_input(
             {
-                "contracts": [
-                    create_contract(
+                "contracts": {
+                    "C1": create_contract(
                         {
                             "id": "C1",
                             "capacity": 1,
@@ -88,7 +88,7 @@ use_cases = [
                             "admitted_applicants": [],
                         }
                     ),
-                    create_contract(
+                    "C2": create_contract(
                         {
                             "id": "C2",
                             "capacity": 1,
@@ -97,7 +97,7 @@ use_cases = [
                             "admitted_applicants": [],
                         }
                     ),
-                ],
+                },
                 "applicants": [
                     create_applicant(
                         {
@@ -150,8 +150,8 @@ use_cases = [
         ],
         "expected": create_input(
             {
-                "contracts": [
-                    create_contract(
+                "contracts": {
+                    "C1": create_contract(
                         {
                             "id": "C1",
                             "capacity": 1,
@@ -160,7 +160,7 @@ use_cases = [
                             "admitted_applicants": [],
                         }
                     ),
-                    create_contract(
+                    "C2": create_contract(
                         {
                             "id": "C2",
                             "capacity": 1,
@@ -169,7 +169,7 @@ use_cases = [
                             "admitted_applicants": [],
                         }
                     ),
-                ],
+                },
                 "applicants": [
                     create_applicant(
                         {
@@ -214,8 +214,8 @@ use_cases = [
         ],
         "expected": create_input(
             {
-                "contracts": [
-                    create_contract(
+                "contracts": {
+                    "C1": create_contract(
                         {
                             "id": "C1",
                             "capacity": 1,
@@ -224,7 +224,7 @@ use_cases = [
                             "admitted_applicants": [],
                         }
                     ),
-                ],
+                },
                 "applicants": [
                     create_applicant(
                         {
