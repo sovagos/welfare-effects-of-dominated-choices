@@ -45,7 +45,7 @@ def _get_applications(applicant: Applicant, contracts: Contracts) -> list[list[s
     return [
         [
             applicant.id,
-            str(rank+1),
+            str(rank + 1),
             str(ranked_application.priority_score),
             ranked_application.contract,
             str(contracts[ranked_application.contract].capacity),

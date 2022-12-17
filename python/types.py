@@ -76,4 +76,5 @@ class Applicants:
     proposer: list[Applicant]
     admitted: dict[str, Applicant]
 
+
 Output = list[list[str]]

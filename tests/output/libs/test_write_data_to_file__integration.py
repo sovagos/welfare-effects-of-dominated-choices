@@ -7,7 +7,7 @@ from tests.helpers import get_random_string
 
 OUTPUT_FOLDER = file = path.join(
     Path(__file__).parent.resolve(),
-    "output",
+    "../output",
 )
 
 
