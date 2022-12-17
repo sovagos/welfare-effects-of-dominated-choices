@@ -135,8 +135,8 @@ dmypy.json
 
 output/*
 input/*
-tests/write_output/output/*
+tests/output/output/*
 !output/.keep
 !input/.keep
-!tests/write_output/output/.keep
+!tests/output/output/.keep
 tmp/*

@@ -1,6 +1,6 @@
 import pytest
 
-from python.output.get_output_from_matchings import (
+from python.output.libs.get_output_from_matchings import (
     get_output_from_matchings,
 )
 from tests.helpers import create_matching
