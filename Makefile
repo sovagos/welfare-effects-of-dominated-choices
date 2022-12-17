@@ -28,7 +28,7 @@ run-correct-lower:
 	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.lower"
 
 run-correct-upper-input:
-	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.correct-upper-input"
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.correct_upper_input"
 
 run-correct-lower-input:
-	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.correct-lower-input"
+	$(DOCKER_RUN_BASH) "INPUT=$(INPUT) python3 -m python.application.correct_lower_input"

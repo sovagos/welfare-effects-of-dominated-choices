@@ -31,7 +31,7 @@ def _get_applications(applicant: Applicant, contracts: Contracts) -> Output:
         [
             applicant.id,
             str(rank + 1),
-            str(ranked_application.priority_score),
+            str(int(ranked_application.priority_score)),
             ranked_application.contract,
             str(contracts[ranked_application.contract].capacity),
             _get_converted_bool(

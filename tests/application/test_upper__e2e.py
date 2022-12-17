@@ -1,7 +1,7 @@
 from tests.e2e_helpers import create_input_file, run, get_result, clear
 
 
-def test__baseline() -> None:
+def test__upper() -> None:
     input_data = [
         [
             "applicant_id",
@@ -13,19 +13,20 @@ def test__baseline() -> None:
             "program_id",
             "admitted",
         ],
-        ["A1", "1", "1", "C1", "1", "0", "P1", "0"],
-        ["A2", "1", "80", "C2", "19", "1", "P2", "1"],
+        ["A1", "1", "1", "C1", "1", "1", "P1", "0"],
+        ["A1", "2", "1", "C2", "1", "0", "P2", "0"],
+        ["A2", "1", "1", "C3", "1", "1", "P2", "0"],
     ]
     input_filename = create_input_file(input_data)
-    output_filename = f"result_{input_filename}"
+    output_filename = f"result_upper_{input_filename}"
 
-    run(input_filename=input_filename, application="python.application.baseline")
+    run(input_filename=input_filename, application="python.application.upper")
 
     result = get_result(output_filename=output_filename)
     assert result == [
         ["applicant_id", "contract_id", "rank"],
-        ["A1", "C1", "1"],
-        ["A2", "C2", "1"],
+        ["A2", "C3", "1"],
+        ["A1", "C1", "2"],
     ]
 
     clear(input_filename=input_filename, output_filename=output_filename)
