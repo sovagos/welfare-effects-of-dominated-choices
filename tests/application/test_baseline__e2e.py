@@ -15,7 +15,7 @@ INPUT_FOLDER_NAME = "input"
 OUTPUT_FOLDER_NAME = "output"
 
 
-def test__main() -> None:
+def test__baseline() -> None:
     input_data = [
         [
             "applicant_id",
