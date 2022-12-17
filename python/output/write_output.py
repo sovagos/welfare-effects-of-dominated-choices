@@ -1,8 +1,8 @@
 from python.types import Matching
-from python.write_output.get_output_from_matchings import (
+from python.output.get_output_from_matchings import (
     get_output_from_matchings,
 )
-from python.write_output.write_data_to_file import write_data_to_file
+from python.output.write_data_to_file import write_data_to_file
 
 
 def write_output(file: str, data: list[Matching]) -> None:

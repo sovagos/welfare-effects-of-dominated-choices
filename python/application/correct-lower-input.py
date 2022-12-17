@@ -7,7 +7,7 @@ from python.correct_dominated_choices.correct_dominated_choices_lower import (
 )
 from python.get_input.get_input import get_input
 from python.types import Input, Contracts, Applicant
-from python.write_output.write_data_to_file import write_data_to_file
+from python.output.write_data_to_file import write_data_to_file
 
 
 def main(input_file: str, output_file: str) -> None:

@@ -2,7 +2,7 @@ from os import path
 from pathlib import Path
 from csv import reader
 
-from python.write_output.write_data_to_file import write_data_to_file
+from python.output.write_data_to_file import write_data_to_file
 from tests.helpers import get_random_string
 
 OUTPUT_FOLDER = file = path.join(
