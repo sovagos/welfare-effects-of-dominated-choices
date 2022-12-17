@@ -58,99 +58,127 @@ use_cases = [
     {
         "description": "No dominated choice",
         "applicant": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_pair_1",
-                "Contract_self_funded_with_pair_1",
+            pairs=[
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
             ]
         ),
         "expected": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_pair_1",
-                "Contract_self_funded_with_pair_1",
+            pairs=[
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
             ]
         ),
     },
     {
         "description": "Dominated dropping and the program has a state-funded version",
         "applicant": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
+            pairs=[
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
             ]
         ),
         "expected": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_pair_1",
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
+            pairs=[
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
             ]
         ),
     },
     {
         "description": "Dominated dropping and the program has no state-funded version",
         "applicant": create_applicant_with_ranked_applications(
-            contract_ids=["Contract_self_funded_with_no_pair"]
+            pairs=[
+                {"contract_id": "Contract_self_funded_with_no_pair", "admitted": False}
+            ]
         ),
         "expected": create_applicant_with_ranked_applications(
-            contract_ids=["Contract_self_funded_with_no_pair"]
+            pairs=[
+                {"contract_id": "Contract_self_funded_with_no_pair", "admitted": False}
+            ]
         ),
     },
     {
         "description": "Dominated droppings and correct in right order",
         "applicant": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
-                "Contract_self_funded_with_pair_2",
+            pairs=[
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_self_funded_with_pair_2", "admitted": False},
             ]
         ),
         "expected": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_pair_1",
-                "Contract_state_funded_with_pair_2",
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
-                "Contract_self_funded_with_pair_2",
+            pairs=[
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_2", "admitted": False},
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_self_funded_with_pair_2", "admitted": False},
             ]
         ),
     },
     {
         "description": "Dominated flipping",
         "applicant": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
-                "Contract_state_funded_with_pair_2",
-                "Contract_state_funded_with_pair_1",
+            pairs=[
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_2", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
             ]
         ),
         "expected": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_pair_1",
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
-                "Contract_state_funded_with_pair_2",
+            pairs=[
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_2", "admitted": False},
             ]
         ),
     },
     {
         "description": "Dominated flippings and correct in right order",
         "applicant": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
-                "Contract_self_funded_with_pair_2",
-                "Contract_state_funded_with_pair_2",
-                "Contract_state_funded_with_pair_1",
+            pairs=[
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_self_funded_with_pair_2", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_2", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
             ]
         ),
         "expected": create_applicant_with_ranked_applications(
-            contract_ids=[
-                "Contract_state_funded_with_pair_1",
-                "Contract_state_funded_with_pair_2",
-                "Contract_state_funded_with_no_pair",
-                "Contract_self_funded_with_pair_1",
-                "Contract_self_funded_with_pair_2",
+            pairs=[
+                {"contract_id": "Contract_state_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_state_funded_with_pair_2", "admitted": False},
+                {
+                    "contract_id": "Contract_state_funded_with_no_pair",
+                    "admitted": False,
+                },
+                {"contract_id": "Contract_self_funded_with_pair_1", "admitted": False},
+                {"contract_id": "Contract_self_funded_with_pair_2", "admitted": False},
             ]
         ),
     },
