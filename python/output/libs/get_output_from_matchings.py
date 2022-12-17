@@ -1,9 +1,9 @@
-from python.types import Matching
+from python.types import Matching, Output
 
 
 def get_output_from_matchings(
     matchings: list[Matching],
-) -> list[list[str]]:
+) -> Output:
     return [
         ["applicant_id", "contract_id", "rank"],
         *[
